@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mes Révisions</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Nunito:wght@400;600;700;800&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* ─── Palette accent ─── */
+:root{
+  --f1:#ff6b9d;--f1l:#fff0f6;--f1m:#ffd6e8;
+  --f2:#7c5cbf;--f2l:#f5f0ff;--f2m:#e2d5f8;
+  --f3:#0ea5b0;--f3l:#f0feff;--f3m:#c8f4f7;
+  --f4:#e07b00;--f4l:#fff8f0;--f4m:#fde8c4;
+  --f5:#2e9e5b;--f5l:#f0fff6;--f5m:#c2f0d4;
+  --f6:#2563d4;--f6l:#eef4ff;--f6m:#c7dcff;
+  --radius:20px;
+}
+
+/* ─── Light theme ─── */
+[data-theme="light"]{
+  --bg:#fdf8f2;--bg2:#ffffff;
+  --ink:#2a2118;--ink-light:#6b5c4a;--ink-muted:#4a3b2a;
+  --shadow:0 8px 40px rgba(42,33,24,0.12);
+  --memo-bg:#fff9c4;--memo-border:#f0d000;--memo-text:#5a4000;--memo-label:#b8860b;
+  --tab-bg:#ffffff;--tab-shadow:0 3px 12px rgba(0,0,0,0.08);
+  --ex-bg:#ffffff;--ex-shadow:0 2px 8px rgba(0,0,0,0.06);
+  --td-color:#3a2e22;--td-even:rgba(0,0,0,0.03);
+  --sec-text:#4a3b2a;--div-op:0.2;
+  --toggle-bg:#2a2118;--toggle-ink:#fdf8f2;
+  --header-dec:#d4b896;
+  --home-star:rgba(42,33,24,0.15);
+  --back-bg:rgba(42,33,24,0.07);--back-ink:#2a2118;
+}
+
+/* ─── Dark theme ─── */
+[data-theme="dark"]{
+  --bg:#0e0e13;--bg2:#18181f;
+  --ink:#ede8e0;--ink-light:#9a8a7a;--ink-muted:#b0a898;
+  --shadow:0 8px 40px rgba(0,0,0,0.5);
+  --memo-bg:#1e1c0a;--memo-border:#8a7200;--memo-text:#d4b840;--memo-label:#c8a020;
+  --tab-bg:#1e1e28;--tab-shadow:0 3px 12px rgba(0,0,0,0.4);
+  --ex-bg:#20202c;--ex-shadow:0 2px 8px rgba(0,0,0,0.3);
+  --td-color:#b0a898;--td-even:rgba(255,255,255,0.03);
+  --sec-text:#b0a898;--div-op:0.15;
+  --toggle-bg:#ede8e0;--toggle-ink:#0e0e13;
+  --header-dec:#4a3a2a;
+  --home-star:rgba(255,255,255,0.12);
+  --back-bg:rgba(255,255,255,0.07);--back-ink:#ede8e0;
+  /* dark section/header overrides for colored fiches */
+  --f1l:#251018;--f1m:#3c1828;
+  --f2l:#171228;--f2m:#261a40;
+  --f3l:#081820;--f3m:#0e2830;
+  --f4l:#1e1000;--f4m:#301a00;
+  --f5l:#081c10;--f5m:#0e2c1a;
+  --f6l:#091628;--f6m:#0e2040;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);min-height:100vh;font-family:'Nunito',sans-serif;color:var(--ink);transition:background .3s,color .3s;}
+
+/* ── THEME TOGGLE ── */
+#theme-toggle{
+  position:fixed;top:18px;right:20px;z-index:1000;
+  width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;
+  background:var(--toggle-bg);color:var(--toggle-ink);
+  font-size:1.2rem;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 16px rgba(0,0,0,0.2);transition:all .3s;
+}
+#theme-toggle:hover{transform:scale(1.1);}
+
+/* ── VIEW SYSTEM ── */
+.view{display:none;}
+.view.active{display:block;}
+
+/* ─────────────────────────────────────────
+   HOME SCREEN
+───────────────────────────────────────── */
+#view-home{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:40px 20px;
+  background:var(--bg);
+}
+.home-deco{
+  font-size:11px;letter-spacing:10px;color:var(--home-star);
+  margin-bottom:28px;text-transform:uppercase;font-family:'Nunito',sans-serif;font-weight:700;
+}
+.home-title{
+  font-family:'Playfair Display',serif;font-size:clamp(3rem,8vw,5.5rem);
+  font-style:italic;color:var(--ink);line-height:1;text-align:center;
+  margin-bottom:12px;
+}
+.home-title em{color:var(--f1);font-style:italic;}
+.home-sub{
+  font-family:'Caveat',cursive;font-size:1.4rem;color:var(--ink-light);
+  margin-bottom:56px;text-align:center;
+}
+.subject-grid{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;}
+.subject-btn{
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+  padding:32px 44px;border:2.5px solid transparent;border-radius:24px;
+  background:var(--bg2);box-shadow:var(--shadow);cursor:pointer;
+  transition:all .35s cubic-bezier(.34,1.56,.64,1);text-decoration:none;
+  min-width:180px;
+}
+.subject-btn:hover{transform:translateY(-6px) scale(1.03);box-shadow:0 16px 60px rgba(0,0,0,0.15);}
+.subject-btn .s-icon{font-size:3rem;line-height:1;}
+.subject-btn .s-label{
+  font-family:'Playfair Display',serif;font-size:1.4rem;font-style:italic;
+  color:var(--ink);
+}
+.subject-btn .s-tag{
+  font-family:'Caveat',cursive;font-size:0.95rem;font-weight:700;
+  padding:3px 14px;border-radius:20px;color:white;
+}
+.subject-btn.fr{border-color:var(--f1m);}
+.subject-btn.fr:hover{border-color:var(--f1);}
+.subject-btn.fr .s-tag{background:var(--f1);}
+.subject-btn.ma{border-color:var(--f3m);}
+.subject-btn.ma:hover{border-color:var(--f3);}
+.subject-btn.ma .s-tag{background:var(--f3);}
+.subject-btn.ma .s-label{color:var(--f3);}
+.home-footer{
+  margin-top:60px;font-family:'Caveat',cursive;font-size:1rem;
+  color:var(--ink-light);letter-spacing:2px;
+}
+
+/* ─────────────────────────────────────────
+   BACK BUTTON
+───────────────────────────────────────── */
+.back-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  margin:20px 20px 0;padding:10px 20px;border-radius:50px;border:none;
+  background:var(--back-bg);color:var(--back-ink);cursor:pointer;
+  font-family:'Caveat',cursive;font-size:1.1rem;font-weight:700;
+  transition:all .25s;
+}
+.back-btn:hover{background:var(--f1);color:white;}
+#view-maths .back-btn:hover{background:var(--f3);}
+
+/* ─────────────────────────────────────────
+   SITE HEADER (subject views)
+───────────────────────────────────────── */
+.site-header{text-align:center;padding:30px 20px 20px;}
+.site-header::before{content:'✦ ✦ ✦';display:block;color:var(--header-dec);font-size:12px;letter-spacing:8px;margin-bottom:10px;}
+.site-header h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,5vw,2.8rem);font-style:italic;color:var(--ink);line-height:1.1;}
+.site-header h1 span.c1{color:var(--f1);}
+.site-header h1 span.c3{color:var(--f3);}
+.site-header p{font-family:'Caveat',cursive;font-size:1.1rem;color:var(--ink-light);margin-top:6px;}
+
+/* ─────────────────────────────────────────
+   NAV TABS
+───────────────────────────────────────── */
+.nav-tabs{display:flex;justify-content:center;gap:10px;padding:16px 20px;flex-wrap:wrap;}
+.tab-btn{font-family:'Caveat',cursive;font-size:1.1rem;font-weight:700;padding:11px 22px;border:3px solid transparent;border-radius:50px;cursor:pointer;transition:all .3s;background:var(--tab-bg);color:var(--ink);box-shadow:var(--tab-shadow);}
+.tab-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.12);}
+.tab-btn.t1{color:var(--f1);border-color:var(--f1m);}
+.tab-btn.t1.active{background:var(--f1);color:white;border-color:var(--f1);}
+.tab-btn.t2{color:var(--f2);border-color:var(--f2m);}
+.tab-btn.t2.active{background:var(--f2);color:white;border-color:var(--f2);}
+.tab-btn.t3{color:var(--f3);border-color:var(--f3m);}
+.tab-btn.t3.active{background:var(--f3);color:white;border-color:var(--f3);}
+.tab-btn.t4{color:var(--f4);border-color:var(--f4m);}
+.tab-btn.t4.active{background:var(--f4);color:white;border-color:var(--f4);}
+.tab-btn.t5{color:var(--f5);border-color:var(--f5m);}
+.tab-btn.t5.active{background:var(--f5);color:white;border-color:var(--f5);}
+.tab-btn.t6{color:var(--f6);border-color:var(--f6m);}
+.tab-btn.t6.active{background:var(--f6);color:white;border-color:var(--f6);}
+
+/* ─────────────────────────────────────────
+   FICHE CARDS
+───────────────────────────────────────── */
+.fiches-wrap{max-width:1000px;margin:0 auto;padding:10px 20px 60px;}
+.fiche{display:none;animation:fadeUp .5s ease forwards;}
+.fiche.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+.fiche-card{background:var(--bg2);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;position:relative;transition:background .3s;}
+.fiche-card::after{content:'';position:absolute;top:0;right:0;width:80px;height:80px;border-radius:0 var(--radius) 0 100%;opacity:0.15;}
+.fiche1 .fiche-card::after{background:var(--f1);}
+.fiche2 .fiche-card::after{background:var(--f2);}
+.fiche3 .fiche-card::after{background:var(--f3);}
+.fiche4 .fiche-card::after{background:var(--f4);}
+.fiche5 .fiche-card::after{background:var(--f5);}
+.fiche6 .fiche-card::after{background:var(--f6);}
+
+.fiche-header{padding:36px 40px 28px;position:relative;transition:background .3s;}
+.fiche1 .fiche-header{background:linear-gradient(135deg,var(--f1m),var(--f1l));border-bottom:3px solid var(--f1m);}
+.fiche2 .fiche-header{background:linear-gradient(135deg,var(--f2m),var(--f2l));border-bottom:3px solid var(--f2m);}
+.fiche3 .fiche-header{background:linear-gradient(135deg,var(--f3m),var(--f3l));border-bottom:3px solid var(--f3m);}
+.fiche4 .fiche-header{background:linear-gradient(135deg,var(--f4m),var(--f4l));border-bottom:3px solid var(--f4m);}
+.fiche5 .fiche-header{background:linear-gradient(135deg,var(--f5m),var(--f5l));border-bottom:3px solid var(--f5m);}
+.fiche6 .fiche-header{background:linear-gradient(135deg,var(--f6m),var(--f6l));border-bottom:3px solid var(--f6m);}
+
+.fiche-num{font-family:'Playfair Display',serif;font-size:.8rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;opacity:.5;margin-bottom:6px;}
+.fiche1 .fiche-num{color:var(--f1);}
+.fiche2 .fiche-num{color:var(--f2);}
+.fiche3 .fiche-num{color:var(--f3);}
+.fiche4 .fiche-num{color:var(--f4);}
+.fiche5 .fiche-num{color:var(--f5);}
+.fiche6 .fiche-num{color:var(--f6);}
+
+.fiche-header h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.6rem);font-style:italic;line-height:1.1;color:var(--ink);}
+.subtitle-tag{display:inline-block;margin-top:10px;font-family:'Caveat',cursive;font-size:1rem;padding:4px 16px;border-radius:20px;color:white;font-weight:700;}
+.fiche1 .subtitle-tag{background:var(--f1);}
+.fiche2 .subtitle-tag{background:var(--f2);}
+.fiche3 .subtitle-tag{background:var(--f3);}
+.fiche4 .subtitle-tag{background:var(--f4);}
+.fiche5 .subtitle-tag{background:var(--f5);}
+.fiche6 .subtitle-tag{background:var(--f6);}
+.fiche-emoji{position:absolute;right:40px;top:50%;transform:translateY(-50%);font-size:4rem;opacity:.2;}
+
+.fiche-body{padding:32px 40px;display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+@media(max-width:640px){.fiche-body{grid-template-columns:1fr;padding:20px;}.fiche-header{padding:24px 20px;}.fiche-emoji{display:none;}}
+
+.section{border-radius:14px;padding:20px 22px;transition:background .3s;}
+.section.fw{grid-column:1/-1;}
+.fiche1 .section{background:var(--f1l);border-left:4px solid var(--f1);}
+.fiche2 .section{background:var(--f2l);border-left:4px solid var(--f2);}
+.fiche3 .section{background:var(--f3l);border-left:4px solid var(--f3);}
+.fiche4 .section{background:var(--f4l);border-left:4px solid var(--f4);}
+.fiche5 .section{background:var(--f5l);border-left:4px solid var(--f5);}
+.fiche6 .section{background:var(--f6l);border-left:4px solid var(--f6);}
+
+.section h3{font-family:'Caveat',cursive;font-size:1.2rem;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.fiche1 .section h3{color:var(--f1);}
+.fiche2 .section h3{color:var(--f2);}
+.fiche3 .section h3{color:var(--f3);}
+.fiche4 .section h3{color:var(--f4);}
+.fiche5 .section h3{color:var(--f5);}
+.fiche6 .section h3{color:var(--f6);}
+
+.section p,.section li{font-size:.88rem;line-height:1.7;color:var(--sec-text);}
+.section ul{padding-left:0;list-style:none;}
+.section ul li::before{content:'→ ';opacity:.5;}
+
+.ex-box{background:var(--ex-bg);border-radius:10px;padding:10px 14px;margin-top:10px;font-family:'Caveat',cursive;font-size:1rem;line-height:1.6;box-shadow:var(--ex-shadow);}
+.fiche1 .ex-box{border-left:3px solid var(--f1);color:var(--f1);}
+.fiche2 .ex-box{border-left:3px solid var(--f2);color:var(--f2);}
+.fiche3 .ex-box{border-left:3px solid var(--f3);color:var(--f3);}
+.fiche4 .ex-box{border-left:3px solid var(--f4);color:var(--f4);}
+.fiche5 .ex-box{border-left:3px solid var(--f5);color:var(--f5);}
+.fiche6 .ex-box{border-left:3px solid var(--f6);color:var(--f6);}
+
+.pill-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px;}
+.pill{display:inline-block;padding:4px 12px;border-radius:20px;font-size:.78rem;font-weight:700;color:white;}
+.fiche1 .pill{background:var(--f1);}
+.fiche2 .pill{background:var(--f2);}
+.fiche3 .pill{background:var(--f3);}
+.fiche4 .pill{background:var(--f4);}
+.fiche5 .pill{background:var(--f5);}
+.fiche6 .pill{background:var(--f6);}
+.pill.light{color:var(--ink);}
+.fiche1 .pill.light{background:var(--f1m);color:#b0336d;}
+.fiche2 .pill.light{background:var(--f2m);color:#5a3a9e;}
+.fiche3 .pill.light{background:var(--f3m);color:#057a84;}
+.fiche4 .pill.light{background:var(--f4m);color:#7a4000;}
+.fiche5 .pill.light{background:var(--f5m);color:#1a6b3a;}
+.fiche6 .pill.light{background:var(--f6m);color:#1040a0;}
+
+[data-theme="dark"] .pill.light{color:var(--ink);}
+[data-theme="dark"] .fiche1 .pill.light{color:#ff8bb5;}
+[data-theme="dark"] .fiche2 .pill.light{color:#a888f0;}
+[data-theme="dark"] .fiche3 .pill.light{color:#20d0dc;}
+[data-theme="dark"] .fiche4 .pill.light{color:#f0a040;}
+[data-theme="dark"] .fiche5 .pill.light{color:#50d080;}
+[data-theme="dark"] .fiche6 .pill.light{color:#5090f0;}
+
+.memo{margin:0 40px 36px;border-radius:14px;padding:20px 24px;background:var(--memo-bg);border:2px dashed var(--memo-border);transition:background .3s,border-color .3s;}
+.memo::before{content:'📌 À retenir';font-family:'Caveat',cursive;font-size:1.1rem;font-weight:700;color:var(--memo-label);display:block;margin-bottom:8px;}
+.memo p{font-family:'Caveat',cursive;font-size:1rem;color:var(--memo-text);line-height:1.7;}
+
+table{width:100%;border-collapse:collapse;font-size:.82rem;margin-top:8px;}
+th{padding:8px 10px;text-align:left;font-weight:700;color:white;font-size:.78rem;text-transform:uppercase;letter-spacing:.5px;}
+.fiche1 th{background:var(--f1);}
+.fiche2 th{background:var(--f2);}
+.fiche3 th{background:var(--f3);}
+.fiche4 th{background:var(--f4);}
+.fiche5 th{background:var(--f5);}
+.fiche6 th{background:var(--f6);}
+td{padding:7px 10px;color:var(--td-color);vertical-align:top;line-height:1.5;}
+tr:nth-child(even) td{background:var(--td-even);}
+tr td:first-child{font-weight:700;}
+
+.dots{text-align:center;padding:14px 0 0;letter-spacing:4px;font-size:10px;}
+.fiche1 .dots{color:var(--f1);}
+.fiche2 .dots{color:var(--f2);}
+.fiche3 .dots{color:var(--f3);}
+.fiche4 .dots{color:var(--f4);}
+.fiche5 .dots{color:var(--f5);}
+.fiche6 .dots{color:var(--f6);}
+
+.divider{height:1px;margin:0 40px;opacity:var(--div-op);}
+.fiche1 .divider{background:var(--f1);}
+.fiche2 .divider{background:var(--f2);}
+.fiche3 .divider{background:var(--f3);}
+.fiche4 .divider{background:var(--f4);}
+.fiche5 .divider{background:var(--f5);}
+.fiche6 .divider{background:var(--f6);}
+
+@media(max-width:640px){.memo{margin:0 20px 24px;}.divider{margin:0 20px;}}
+
+/* ─────────────────────────────────────────
+   MATHS PLACEHOLDER
+───────────────────────────────────────── */
+.placeholder{
+  max-width:600px;margin:60px auto;text-align:center;
+  padding:60px 40px;background:var(--bg2);border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+.placeholder .pl-icon{font-size:5rem;margin-bottom:20px;opacity:.5;}
+.placeholder h2{font-family:'Playfair Display',serif;font-size:2rem;font-style:italic;color:var(--ink);margin-bottom:12px;}
+.placeholder p{font-family:'Caveat',cursive;font-size:1.2rem;color:var(--ink-light);}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     THEME TOGGLE
+══════════════════════════════════════ -->
+<button id="theme-toggle" onclick="toggleTheme()" title="Changer le thème">🌙</button>
+
+<!-- ══════════════════════════════════════
+     HOME VIEW
+══════════════════════════════════════ -->
+<div id="view-home" class="view active">
+  <div class="home-deco">✦ &nbsp; mes fiches &nbsp; ✦</div>
+  <h1 class="home-title">Mes <em>Révisions</em></h1>
+  <p class="home-sub">Choisir une matière</p>
+
+  <div class="subject-grid">
+    <button class="subject-btn fr" onclick="goTo('francais')">
+      <span class="s-icon">📚</span>
+      <span class="s-label">Français</span>
+      <span class="s-tag">Grammaire</span>
+    </button>
+    <button class="subject-btn ma" onclick="goTo('maths')">
+      <span class="s-icon">📐</span>
+      <span class="s-label" style="color:var(--f3)">Maths</span>
+      <span class="s-tag">Bientôt</span>
+    </button>
+  </div>
+
+  <p class="home-footer">✦ &nbsp; d'autres matières arrivent &nbsp; ✦</p>
+</div>
+
+<!-- ══════════════════════════════════════
+     FRANÇAIS VIEW
+══════════════════════════════════════ -->
+<div id="view-francais" class="view">
+  <button class="back-btn" onclick="goHome()">← Accueil</button>
+  <div class="site-header">
+    <h1>Fiches de <span class="c1">Révision</span></h1>
+    <p>Français — Grammaire ✦ Classe de collège</p>
+  </div>
+  <div class="nav-tabs" id="nav-fr">
+    <button class="tab-btn t1 active" onclick="showFr(1)">📚 Les Fonctions</button>
+    <button class="tab-btn t2" onclick="showFr(2)">🔤 Classes Grammaticales</button>
+    <button class="tab-btn t3" onclick="showFr(3)">💬 Formes de Phrase</button>
+    <button class="tab-btn t4" onclick="showFr(4)">⏳ Les Temps</button>
+    <button class="tab-btn t5" onclick="showFr(5)">🏷️ Nature du Nom</button>
+    <button class="tab-btn t6" onclick="showFr(6)">🔗 Les Propositions</button>
+  </div>
+  <div class="fiches-wrap" id="fiches-fr">
+
+  <!-- ══ FICHE 1 : LES FONCTIONS ══ -->
+  <div class="fiche fiche1 active" id="fr1">
+  <div class="fiche-card">
+  <div class="fiche-header">
+    <div class="fiche-num">Fiche nº 01</div>
+    <h2>Les Fonctions<br>Grammaticales</h2>
+    <span class="subtitle-tag">Autour du verbe · du nom · de la phrase</span>
+    <div class="fiche-emoji">🔗</div>
+  </div>
+  <div class="fiche-body">
+    <div class="section">
+      <h3>🔵 Autour du VERBE</h3>
+      <ul>
+        <li><strong>Sujet</strong> — répond à « Qui est-ce qui ? »</li>
+        <li><strong>COD</strong> — Complément d'objet direct (sans préposition)</li>
+        <li><strong>COI</strong> — Complément d'objet indirect (avec <em>à</em>, <em>de</em>…)</li>
+        <li><strong>Attribut du sujet</strong> — relié par un verbe d'état</li>
+        <li><strong>Attribut du COD</strong> — qualifie le COD</li>
+      </ul>
+      <div class="ex-box"><em>Paul</em> mange <em>une pomme</em>.<br>→ Sujet : Paul · COD : une pomme</div>
+    </div>
+    <div class="section">
+      <h3>🔴 Autour du NOM</h3>
+      <ul>
+        <li><strong>Épithète</strong> — adjectif directement lié au nom</li>
+        <li><strong>Apposition</strong> — nom ou groupe mis en apposition</li>
+        <li><strong>Complément du nom</strong> — introduit par <em>de</em>, <em>à</em>…</li>
+      </ul>
+      <div class="ex-box">La <em>belle</em> maison de <em>mes parents</em>.<br>→ Épithète : belle · CDN : de mes parents</div>
+    </div>
+    <div class="section fw">
+      <h3>🟢 Compléments circonstanciels</h3>
+      <table>
+        <tr><th>CC</th><th>Question</th><th>Exemple</th></tr>
+        <tr><td>Temps</td><td>Quand ?</td><td>Elle dort <em>le soir</em>.</td></tr>
+        <tr><td>Lieu</td><td>Où ?</td><td>Il court <em>dans le parc</em>.</td></tr>
+        <tr><td>Manière</td><td>Comment ?</td><td>Il parle <em>doucement</em>.</td></tr>
+        <tr><td>But</td><td>Pour quoi faire ?</td><td>Elle étudie <em>pour réussir</em>.</td></tr>
+        <tr><td>Cause</td><td>Pourquoi ?</td><td>Il tremble <em>de froid</em>.</td></tr>
+        <tr><td>Conséquence</td><td>Avec quel résultat ?</td><td>Il mange trop, <em>au point de se sentir mal</em>.</td></tr>
+      </table>
+    </div>
+    <div class="section">
+      <h3>🛠️ Astuces pour identifier</h3>
+      <ul>
+        <li><strong>Sujet</strong> → non supprimable, non déplaçable</li>
+        <li><strong>COD</strong> → remplaçable par <em>le / la / les</em></li>
+        <li><strong>COI</strong> → remplaçable par <em>lui / leur</em></li>
+        <li><strong>CC</strong> → supprimable ET déplaçable</li>
+        <li><strong>Épithète</strong> → supprimable, non déplaçable</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3>⚠️ Pièges courants</h3>
+      <ul>
+        <li>Ne pas confondre <strong>COD</strong> et <strong>attribut du sujet</strong></li>
+        <li>Le sujet peut être <strong>inversé</strong> (interrogation)</li>
+        <li>Un CC peut se trouver <strong>n'importe où</strong> dans la phrase</li>
+        <li>L'<strong>épithète détachée</strong> ressemble à l'apposition</li>
+      </ul>
+      <div class="ex-box">Il est <em>médecin</em>. → Attribut du sujet<br>Il <em>devient</em> médecin. → idem (verbe d'état)</div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="memo"><p>Le <strong>sujet</strong> fait l'action → non supprimable. Le <strong>COD</strong> répond à « quoi ? » sans préposition. Le <strong>COI</strong> répond à « à qui ? / de quoi ? ». Les <strong>CC</strong> sont les seules fonctions que l'on peut supprimer et déplacer librement. L'<strong>épithète</strong> est un adjectif collé au nom, l'<strong>attribut</strong> passe par un verbe d'état.</p></div>
+  <div class="dots">● ● ●</div><br>
+  </div></div>
+
+  <!-- ══ FICHE 2 : CLASSES GRAMMATICALES ══ -->
+  <div class="fiche fiche2" id="fr2">
+  <div class="fiche-card">
+  <div class="fiche-header">
+    <div class="fiche-num">Fiche nº 02</div>
+    <h2>Les Classes<br>Grammaticales</h2>
+    <span class="subtitle-tag">Variables · Invariables</span>
+    <div class="fiche-emoji">🔤</div>
+  </div>
+  <div class="fiche-body">
+    <div class="section fw">
+      <h3>📌 Mots VARIABLES (s'accordent)</h3>
+      <div class="pill-row">
+        <span class="pill">Nom</span><span class="pill">Déterminant</span>
+        <span class="pill">Adjectif qualificatif</span><span class="pill">Pronom</span><span class="pill">Verbe</span>
+      </div>
+    </div>
+    <div class="section">
+      <h3>🏷️ Nom</h3>
+      <ul>
+        <li><strong>Commun</strong> — un chat, la maison, des idées</li>
+        <li><strong>Propre</strong> — Paris, Marie, la France</li>
+      </ul>
+      <p style="margin-top:8px;font-size:.8rem;opacity:.7;">Varie en genre (masculin/féminin) et en nombre (singulier/pluriel)</p>
+    </div>
+    <div class="section">
+      <h3>🗂️ Déterminant</h3>
+      <ul>
+        <li><strong>Défini :</strong> le, la, l', les</li>
+        <li><strong>Indéfini :</strong> un, une, des</li>
+        <li><strong>Partitif :</strong> du, de la, de l'</li>
+        <li><strong>Possessif :</strong> mon, ton, son, notre…</li>
+        <li><strong>Démonstratif :</strong> ce, cet, cette, ces</li>
+        <li><strong>Numéral :</strong> deux, cent, mille…</li>
+        <li><strong>Indéfini :</strong> chaque, tout, aucun…</li>
+        <li><strong>Interrogatif :</strong> quel, quelle…</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3>🌈 Adjectif qualificatif</h3>
+      <ul>
+        <li>Qualifie un <strong>nom ou un pronom</strong></li>
+        <li>S'accorde en genre et en nombre avec le nom</li>
+        <li><strong>Épithète</strong> → directement lié au nom</li>
+        <li><strong>Attribut</strong> → relié par un verbe d'état</li>
+      </ul>
+      <div class="ex-box">Une <em>grande</em> maison. → épithète<br>La maison est <em>grande</em>. → attribut du sujet</div>
+    </div>
+    <div class="section">
+      <h3>👤 Pronom</h3>
+      <ul>
+        <li><strong>Personnel :</strong> je, tu, il, nous, vous, ils…</li>
+        <li><strong>Démonstratif :</strong> celui-ci, cela, ce…</li>
+        <li><strong>Possessif :</strong> le mien, la tienne…</li>
+        <li><strong>Relatif :</strong> qui, que, dont, où, lequel…</li>
+        <li><strong>Interrogatif :</strong> qui, que, lequel…</li>
+        <li><strong>Indéfini :</strong> on, certains, aucun…</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3>⚡ Verbe</h3>
+      <ul>
+        <li><strong>D'action :</strong> courir, manger, écrire…</li>
+        <li><strong>D'état :</strong> être, paraître, sembler, devenir, rester, demeurer, avoir l'air</li>
+      </ul>
+      <div class="ex-box">Elle <em>paraît</em> fatiguée. → verbe d'état<br>Elle <em>court</em> vite. → verbe d'action</div>
+    </div>
+    <div class="section">
+      <h3>🔒 Mots INVARIABLES</h3>
+      <div class="pill-row">
+        <span class="pill light">Adverbe</span><span class="pill light">Préposition</span>
+        <span class="pill light">Conjonction</span><span class="pill light">Interjection</span>
+      </div>
+      <table style="margin-top:12px;">
+        <tr><th>Mot</th><th>Exemples</th></tr>
+        <tr><td>Adverbe</td><td>vite, très, bien, hier, souvent…</td></tr>
+        <tr><td>Préposition</td><td>à, dans, par, pour, avec, de, en…</td></tr>
+        <tr><td>Conj. de coordination</td><td>mais, ou, et, donc, or, ni, car</td></tr>
+        <tr><td>Conj. de subordination</td><td>que, si, quand, parce que…</td></tr>
+        <tr><td>Interjection</td><td>oh !, ah !, aïe !, chut !</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="memo"><p><strong>Variables</strong> = Nom, Déterminant, Adjectif, Pronom, Verbe → ils s'accordent. <strong>Invariables</strong> = Adverbe, Préposition, Conjonction, Interjection → ils ne changent jamais de forme. Pour trouver la classe d'un mot, on le cherche dans la phrase telle qu'elle est écrite, sans le modifier.</p></div>
+  <div class="dots">● ● ●</div><br>
+  </div></div>
+
+  <!-- ══ FICHE 3 : FORMES DE PHRASE ══ -->
+  <div class="fiche fiche3" id="fr3">
+  <div class="fiche-card">
+  <div class="fiche-header">
+    <div class="fiche-num">Fiche nº 03</div>
+    <h2>Les Formes<br>&amp; Types de Phrase</h2>
+    <span class="subtitle-tag">Formes · Types · Ponctuation</span>
+    <div class="fiche-emoji">💬</div>
+  </div>
+  <div class="fiche-body">
+    <div class="section fw">
+      <h3>📐 Les TYPES de phrase</h3>
+      <table>
+        <tr><th>Type</th><th>Rôle</th><th>Ponctuation</th><th>Exemple</th></tr>
+        <tr><td>Déclarative</td><td>Donner une information</td><td>.</td><td>Le soleil se lève.</td></tr>
+        <tr><td>Interrogative</td><td>Poser une question</td><td>?</td><td>Est-ce qu'il vient ?</td></tr>
+        <tr><td>Impérative</td><td>Donner un ordre</td><td>. ou !</td><td>Viens ici.</td></tr>
+        <tr><td>Exclamative</td><td>Exprimer un sentiment</td><td>!</td><td>Comme il fait beau !</td></tr>
+      </table>
+    </div>
+    <div class="section">
+      <h3>✅ Forme affirmative</h3>
+      <p>Phrase positive, sans négation. C'est la forme de base.</p>
+      <div class="ex-box">Il mange une pomme.<br>Elle chante bien.</div>
+    </div>
+    <div class="section">
+      <h3>❌ Forme négative</h3>
+      <ul>
+        <li><em>ne … pas</em> — négation totale</li>
+        <li><em>ne … jamais</em> — négation temporelle</li>
+        <li><em>ne … rien</em> — négation sur l'objet</li>
+        <li><em>ne … personne</em> — négation sur le sujet/objet</li>
+        <li><em>ne … plus</em> — cessation</li>
+        <li><em>ne … que</em> — restriction</li>
+      </ul>
+      <div class="ex-box">Il ne mange <em>pas</em>.<br>Elle ne vient <em>jamais</em>.</div>
+    </div>
+    <div class="section">
+      <h3>🟢 Forme active</h3>
+      <p>Le sujet <strong>fait</strong> l'action. C'est la forme habituelle.</p>
+      <div class="ex-box">Le chat <em>mange</em> la souris.<br>→ Sujet actif = le chat</div>
+    </div>
+    <div class="section">
+      <h3>🔄 Forme passive</h3>
+      <ul>
+        <li>Le sujet <strong>subit</strong> l'action</li>
+        <li>Construction : <em>être + participe passé</em></li>
+        <li>L'agent est introduit par <em>par</em> ou <em>de</em></li>
+      </ul>
+      <div class="ex-box">La souris <em>est mangée</em> par le chat.<br>→ Sujet passif = la souris</div>
+    </div>
+    <div class="section">
+      <h3>👤 Forme personnelle</h3>
+      <p>Le verbe a un <strong>sujet réel et identifiable</strong>.</p>
+      <div class="ex-box">Elle court. — Tu manges. — Nous parlons.</div>
+    </div>
+    <div class="section">
+      <h3>🌀 Forme impersonnelle</h3>
+      <p>Le sujet est un « <strong>il</strong> » impersonnel — il ne désigne personne.</p>
+      <div class="pill-row">
+        <span class="pill light">Il pleut.</span><span class="pill light">Il faut.</span>
+        <span class="pill light">Il neige.</span><span class="pill light">Il y a.</span>
+      </div>
+    </div>
+    <div class="section fw">
+      <h3>🔀 Combiner formes et types</h3>
+      <table>
+        <tr><th>Phrase</th><th>Type</th><th>Formes</th></tr>
+        <tr><td>Il ne pleut pas.</td><td>Déclarative</td><td>Négative + Impersonnelle</td></tr>
+        <tr><td>La souris a-t-elle été mangée ?</td><td>Interrogative</td><td>Passive + Personnelle</td></tr>
+        <tr><td>Ne cours pas !</td><td>Impérative</td><td>Négative + Personnelle</td></tr>
+        <tr><td>Il fait beau !</td><td>Exclamative</td><td>Affirmative + Impersonnelle</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="memo"><p>Il y a <strong>4 types</strong> (déclarative, interrogative, impérative, exclamative) qui s'excluent mutuellement. Il y a <strong>3 oppositions de formes</strong> : Affirmative ↔ Négative · Active ↔ Passive · Personnelle ↔ Impersonnelle. La forme passive se reconnaît toujours avec <em>être + participe passé</em>.</p></div>
+  <div class="dots">● ● ●</div><br>
+  </div></div>
+
+  <!-- ══ FICHE 4 : LES TEMPS ══ -->
+  <div class="fiche fiche4" id="fr4">
+  <div class="fiche-card">
+  <div class="fiche-header">
+    <div class="fiche-num">Fiche nº 04</div>
+    <h2>Les Temps<br>de l'Indicatif</h2>
+    <span class="subtitle-tag">Temps simples · Temps composés</span>
+    <div class="fiche-emoji">⏳</div>
+  </div>
+  <div class="fiche-body">
+    <div class="section fw">
+      <h3>📌 Temps simples vs Temps composés</h3>
+      <div class="pill-row">
+        <span class="pill">Temps simple</span><span class="pill light">= 1 seul mot (verbe conjugué seul)</span>
+      </div>
+      <div class="pill-row" style="margin-top:6px;">
+        <span class="pill">Temps composé</span><span class="pill light">= auxiliaire (être / avoir) + participe passé</span>
+      </div>
+      <div class="ex-box" style="margin-top:10px;">Simple → Il <em>mange</em>. · Composé → Il <em>a mangé</em>.<br>Simple → Elle <em>courut</em>. · Composé → Elle <em>eut couru</em>.</div>
+    </div>
+    <div class="section">
+      <h3>🟠 Présent de l'indicatif</h3>
+      <ul>
+        <li>Action qui se passe <strong>maintenant</strong></li>
+        <li>Vérité générale, habitude</li>
+      </ul>
+      <div class="ex-box">Je <em>mange</em> une pomme.<br>Le soleil <em>se lève</em> à l'est.</div>
+      <p style="font-size:.78rem;margin-top:8px;opacity:.6;">Terminaisons 1er gr. : -e, -es, -e, -ons, -ez, -ent</p>
+    </div>
+    <div class="section">
+      <h3>🟡 Imparfait</h3>
+      <ul>
+        <li>Action <strong>répétée ou habituelle</strong> dans le passé</li>
+        <li>Description dans le passé</li>
+        <li>Action en cours d'accomplissement</li>
+      </ul>
+      <div class="ex-box">Il <em>pleuvait</em> tous les soirs.<br>Elle <em>était</em> petite et blonde.</div>
+      <p style="font-size:.78rem;margin-top:8px;opacity:.6;">Terminaisons : -ais, -ais, -ait, -ions, -iez, -aient</p>
+    </div>
+    <div class="section">
+      <h3>🔴 Passé simple</h3>
+      <ul>
+        <li>Action <strong>ponctuelle et terminée</strong> dans le passé</li>
+        <li>Surtout utilisé à l'<strong>écrit littéraire</strong></li>
+        <li>Marque une rupture dans un récit</li>
+      </ul>
+      <div class="ex-box">Le roi <em>entra</em> dans la salle.<br>Elle <em>tomba</em> et <em>se releva</em> aussitôt.</div>
+      <p style="font-size:.78rem;margin-top:8px;opacity:.6;">1er gr. : -ai, -as, -a, -âmes, -âtes, -èrent</p>
+    </div>
+    <div class="section">
+      <h3>🟢 Futur simple</h3>
+      <ul>
+        <li>Action qui <strong>se passera plus tard</strong></li>
+        <li>Certitude sur l'avenir</li>
+        <li>Ordre atténué</li>
+      </ul>
+      <div class="ex-box">Demain, il <em>fera</em> beau.<br>Tu <em>rangeras</em> ta chambre.</div>
+      <p style="font-size:.78rem;margin-top:8px;opacity:.6;">Terminaisons : -rai, -ras, -ra, -rons, -rez, -ront</p>
+    </div>
+    <div class="section fw">
+      <h3>📊 Correspondances simples ↔ composés</h3>
+      <table>
+        <tr><th>Temps simple</th><th>Temps composé</th><th>Exemple</th></tr>
+        <tr><td>Présent</td><td>Passé composé</td><td>Il a mangé / Elle est partie</td></tr>
+        <tr><td>Imparfait</td><td>Plus-que-parfait</td><td>Il avait mangé / Elle était partie</td></tr>
+        <tr><td>Passé simple</td><td>Passé antérieur</td><td>Il eut mangé / Elle fut partie</td></tr>
+        <tr><td>Futur simple</td><td>Futur antérieur</td><td>Il aura mangé / Elle sera partie</td></tr>
+        <tr><td>Conditionnel présent</td><td>Conditionnel passé</td><td>Il aurait mangé</td></tr>
+      </table>
+    </div>
+    <div class="section">
+      <h3>🔵 Passé composé</h3>
+      <ul>
+        <li>Action <strong>terminée</strong>, souvent liée au présent</li>
+        <li>Équivalent oral du passé simple</li>
+        <li>Auxiliaire <strong>avoir</strong> ou <strong>être</strong> + PP</li>
+      </ul>
+      <div class="ex-box">J'<em>ai mangé</em> une pizza.<br>Elle <em>est arrivée</em> en retard.</div>
+    </div>
+    <div class="section">
+      <h3>🟤 Plus-que-parfait</h3>
+      <ul>
+        <li>Action <strong>antérieure à une autre action passée</strong></li>
+        <li>Toujours dans un contexte de passé</li>
+      </ul>
+      <div class="ex-box">Quand il arriva, elle <em>était déjà partie</em>.<br>Il <em>avait fini</em> avant que je commence.</div>
+      <p style="font-size:.78rem;margin-top:8px;opacity:.6;">Auxiliaire à l'imparfait + participe passé</p>
+    </div>
+    <div class="section">
+      <h3>🟣 Conditionnel</h3>
+      <ul>
+        <li><strong>Présent :</strong> hypothèse, politesse, souhait</li>
+        <li><strong>Passé :</strong> action hypothétique non réalisée</li>
+      </ul>
+      <div class="ex-box">Je <em>mangerais</em> bien une glace.<br>Si j'avais su, je <em>serais venu</em>.</div>
+      <p style="font-size:.78rem;margin-top:8px;opacity:.6;">Présent : radical du futur + terminaisons de l'imparfait</p>
+    </div>
+    <div class="section">
+      <h3>✨ Subjonctif (mode)</h3>
+      <ul>
+        <li>Exprime le <strong>doute, le souhait, l'obligation, la crainte</strong></li>
+        <li>Après <em>que</em>, <em>bien que</em>, <em>pour que</em>…</li>
+      </ul>
+      <div class="ex-box">Il faut que tu <em>viennes</em>.<br>Bien qu'elle <em>soit</em> fatiguée…</div>
+    </div>
+    <div class="section fw">
+      <h3>🔧 Être ou Avoir ? — Verbes conjugués avec ÊTRE</h3>
+      <div class="pill-row">
+        <span class="pill light">aller / venir</span><span class="pill light">arriver / partir</span>
+        <span class="pill light">entrer / sortir</span><span class="pill light">naître / mourir</span>
+        <span class="pill light">monter / descendre</span><span class="pill light">tomber / rester</span>
+        <span class="pill light">retourner / passer</span><span class="pill light">+ tous les pronominaux</span>
+      </div>
+      <p style="font-size:.82rem;margin-top:10px;color:var(--sec-text);">Avec <strong>être</strong> → le participe passé s'accorde avec le sujet en genre et en nombre.</p>
+      <div class="ex-box" style="margin-top:8px;">Elles sont <em>arrivées</em>. → féminin pluriel<br>Il est <em>parti</em>. → masculin singulier</div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="memo"><p><strong>Temps simples</strong> : Présent · Imparfait · Passé simple · Futur simple · Conditionnel présent. <strong>Temps composés</strong> : Passé composé · Plus-que-parfait · Passé antérieur · Futur antérieur · Conditionnel passé. Le temps composé = auxiliaire + PP = action <strong>accomplie</strong>. Toujours se demander : l'action est-elle <em>en train</em> de se faire, <em>terminée</em> ou <em>à venir</em> ?</p></div>
+  <div class="dots">● ● ●</div><br>
+  </div></div>
+
+  <!-- ══ FICHE 5 : NATURE DU NOM ══ -->
+  <div class="fiche fiche5" id="fr5">
+  <div class="fiche-card">
+  <div class="fiche-header">
+    <div class="fiche-num">Fiche nº 05</div>
+    <h2>La Nature<br>du Nom</h2>
+    <span class="subtitle-tag">Commun · Propre · Genre · Nombre</span>
+    <div class="fiche-emoji">🏷️</div>
+  </div>
+  <div class="fiche-body">
+    <div class="section fw">
+      <h3>📖 Qu'est-ce qu'un nom ?</h3>
+      <p>Le <strong>nom</strong> (ou <em>substantif</em>) désigne une personne, un animal, une chose, un lieu, une idée ou un sentiment. Il est presque toujours accompagné d'un <strong>déterminant</strong>. Il varie en <strong>genre</strong> et en <strong>nombre</strong>.</p>
+      <div class="ex-box"><em>le chien</em> · <em>Paris</em> · <em>la liberté</em> · <em>une idée</em> · <em>des enfants</em></div>
+    </div>
+    <div class="section">
+      <h3>🏷️ Nom commun</h3>
+      <ul>
+        <li>Désigne une <strong>catégorie</strong> d'êtres ou de choses</li>
+        <li>S'écrit avec une <strong>minuscule</strong></li>
+        <li>Toujours précédé d'un déterminant</li>
+      </ul>
+      <div class="pill-row">
+        <span class="pill light">un chien</span><span class="pill light">la maison</span>
+        <span class="pill light">des nuages</span><span class="pill light">le bonheur</span>
+      </div>
+      <div class="ex-box">Je promène <em>un chien</em> dans <em>le parc</em>.</div>
+    </div>
+    <div class="section">
+      <h3>🌍 Nom propre</h3>
+      <ul>
+        <li>Désigne un <strong>être ou un lieu unique</strong></li>
+        <li>S'écrit toujours avec une <strong>majuscule</strong></li>
+        <li>Peut se passer de déterminant (prénoms, villes)</li>
+      </ul>
+      <div class="pill-row">
+        <span class="pill light">Marie</span><span class="pill light">Paris</span>
+        <span class="pill light">la France</span><span class="pill light">l'Amazone</span>
+      </div>
+      <div class="ex-box"><em>Marie</em> habite à <em>Paris</em>.</div>
+    </div>
+    <div class="section">
+      <h3>♂️♀️ Le genre du nom</h3>
+      <ul>
+        <li>Les noms sont <strong>masculins</strong> ou <strong>féminins</strong></li>
+        <li>Pas de règle absolue → à mémoriser !</li>
+        <li>Le déterminant indique le genre (<em>le / un</em> → masc. ; <em>la / une</em> → fém.)</li>
+      </ul>
+      <table style="margin-top:10px;">
+        <tr><th>Masculin</th><th>Féminin</th></tr>
+        <tr><td>le soleil</td><td>la lune</td></tr>
+        <tr><td>un arbre</td><td>une fleur</td></tr>
+        <tr><td>le courage</td><td>la peur</td></tr>
+        <tr><td>un chanteur</td><td>une chanteuse</td></tr>
+      </table>
+    </div>
+    <div class="section">
+      <h3>1️⃣ Le nombre du nom</h3>
+      <ul>
+        <li><strong>Singulier</strong> → un seul être ou une seule chose</li>
+        <li><strong>Pluriel</strong> → plusieurs → on ajoute généralement <strong>-s</strong></li>
+      </ul>
+      <table style="margin-top:10px;">
+        <tr><th>Cas particulier</th><th>Règle</th><th>Exemple</th></tr>
+        <tr><td>-s, -x, -z final</td><td>ne changent pas</td><td>un bras → des bras</td></tr>
+        <tr><td>-au, -eau, -eu</td><td>prennent -x</td><td>un gâteau → des gâteaux</td></tr>
+        <tr><td>-al</td><td>→ -aux</td><td>un cheval → des chevaux</td></tr>
+        <tr><td>-ou (7 exceptions)</td><td>prennent -x</td><td>un genou → des genoux</td></tr>
+      </table>
+    </div>
+    <div class="section">
+      <h3>🧱 Nom concret</h3>
+      <ul>
+        <li>Désigne quelque chose que l'on peut <strong>percevoir par les sens</strong></li>
+        <li>On peut le voir, l'entendre, le toucher…</li>
+      </ul>
+      <div class="ex-box">une table · un oiseau · la pluie · le bruit</div>
+    </div>
+    <div class="section">
+      <h3>💭 Nom abstrait</h3>
+      <ul>
+        <li>Désigne une <strong>idée, un sentiment, une qualité</strong></li>
+        <li>On ne peut pas le percevoir directement par les sens</li>
+      </ul>
+      <div class="ex-box">la liberté · le courage · la joie · l'amour</div>
+    </div>
+    <div class="section">
+      <h3>🔠 Nom simple</h3>
+      <ul><li>Formé d'<strong>un seul mot</strong></li></ul>
+      <div class="ex-box">chat · maison · enfant · eau</div>
+    </div>
+    <div class="section">
+      <h3>🔗 Nom composé</h3>
+      <ul>
+        <li>Formé de <strong>plusieurs mots</strong> (avec ou sans trait d'union)</li>
+        <li>Désigne un seul et même concept</li>
+      </ul>
+      <div class="ex-box">un arc-en-ciel · un timbre-poste<br>un chou-fleur · un porte-monnaie</div>
+      <p style="font-size:.78rem;margin-top:8px;opacity:.6;">⚠️ Le pluriel des noms composés est délicat → vérifier dans le dictionnaire !</p>
+    </div>
+    <div class="section fw">
+      <h3>📊 Récapitulatif — Les grandes catégories de noms</h3>
+      <table>
+        <tr><th>Catégorie</th><th>Définition</th><th>Exemples</th></tr>
+        <tr><td>Nom commun</td><td>Désigne une catégorie</td><td>un livre, une ville, des idées</td></tr>
+        <tr><td>Nom propre</td><td>Désigne un être unique</td><td>Hugo, Lyon, la Seine</td></tr>
+        <tr><td>Nom concret</td><td>Perceptible par les sens</td><td>une pierre, le vent, un chat</td></tr>
+        <tr><td>Nom abstrait</td><td>Idée, sentiment, qualité</td><td>la bonté, la tristesse, le temps</td></tr>
+        <tr><td>Nom simple</td><td>Un seul mot</td><td>arbre, fleur, soleil</td></tr>
+        <tr><td>Nom composé</td><td>Plusieurs mots</td><td>arc-en-ciel, porte-monnaie</td></tr>
+        <tr><td>Nom animé</td><td>Être vivant</td><td>un élève, un loup, Marie</td></tr>
+        <tr><td>Nom inanimé</td><td>Chose, objet, lieu</td><td>une table, un pays, la mer</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="memo"><p>Un nom est <strong>commun</strong> (minuscule, catégorie) ou <strong>propre</strong> (majuscule, être unique). Il a un <strong>genre</strong> (masculin/féminin) et un <strong>nombre</strong> (singulier/pluriel). Il peut être <strong>concret</strong> (perçu par les sens) ou <strong>abstrait</strong> (idée, sentiment). Les noms en <em>-al</em> font <em>-aux</em> au pluriel (cheval → chevaux) et ceux en <em>-eau</em> prennent un <em>-x</em> (gâteau → gâteaux).</p></div>
+  <div class="dots">● ● ●</div><br>
+  </div></div>
+
+  <!-- ══ FICHE 6 : LES PROPOSITIONS ══ -->
+  <div class="fiche fiche6" id="fr6">
+  <div class="fiche-card">
+  <div class="fiche-header">
+    <div class="fiche-num">Fiche nº 06</div>
+    <h2>Les Propositions<br>dans la Phrase</h2>
+    <span class="subtitle-tag">Indépendante · Principale · Subordonnée</span>
+    <div class="fiche-emoji">🔗</div>
+  </div>
+  <div class="fiche-body">
+    <div class="section fw">
+      <h3>📌 Qu'est-ce qu'une proposition ?</h3>
+      <p>Une <strong>proposition</strong> est un groupe de mots organisé autour d'un <strong>verbe conjugué</strong>. Une phrase peut contenir une seule proposition ou plusieurs, reliées entre elles.</p>
+      <div class="ex-box">
+        <em>Le chien aboie.</em> → 1 seule proposition<br>
+        <em>Le chien aboie / parce qu'il a peur.</em> → 2 propositions
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>⬜ Proposition indépendante</h3>
+      <ul>
+        <li>Se suffit à elle-même</li>
+        <li>Ne dépend d'aucune autre proposition</li>
+        <li>Aucune autre proposition ne dépend d'elle</li>
+      </ul>
+      <div class="ex-box">
+        <em>Il fait beau.</em><br>
+        <em>Paul lit ; Marie écrit.</em> → 2 prop. indépendantes juxtaposées
+      </div>
+      <p style="font-size:.78rem;margin-top:8px;opacity:.6;">Juxtaposition : reliées par une virgule ou un point-virgule.<br>Coordination : reliées par <em>et, mais, ou, donc, or, ni, car</em>.</p>
+    </div>
+
+    <div class="section">
+      <h3>🟦 Proposition principale</h3>
+      <ul>
+        <li>Elle ne dépend d'aucune autre proposition</li>
+        <li>Mais une (ou plusieurs) <strong>subordonnée(s) dépend d'elle</strong></li>
+        <li>C'est la «&nbsp;tête&nbsp;» de la phrase complexe</li>
+      </ul>
+      <div class="ex-box">
+        <em>Je pense</em> [que tu as raison].<br>
+        → principale : <em>Je pense</em>
+      </div>
+    </div>
+
+    <div class="section fw">
+      <h3>🟧 Proposition subordonnée relative</h3>
+      <ul>
+        <li>Introduite par un <strong>pronom relatif</strong> : <em>qui, que, dont, où, lequel…</em></li>
+        <li>Complète un <strong>antécédent</strong> (un nom ou pronom)</li>
+        <li>Elle a la fonction d'<strong>épithète</strong> ou d'apposition par rapport à l'antécédent</li>
+      </ul>
+      <table style="margin-top:10px;">
+        <tr><th>Pronom</th><th>Fonction dans la sub.</th><th>Exemple</th></tr>
+        <tr><td>qui</td><td>Sujet</td><td>l'élève <em>qui parle</em></td></tr>
+        <tr><td>que / qu'</td><td>COD</td><td>le livre <em>que je lis</em></td></tr>
+        <tr><td>dont</td><td>CDN ou COI (de)</td><td>la fille <em>dont je parle</em></td></tr>
+        <tr><td>où</td><td>CC de lieu/temps</td><td>le jour <em>où il est né</em></td></tr>
+        <tr><td>lequel / laquelle…</td><td>CC (avec prép.)</td><td>le stylo <em>avec lequel j'écris</em></td></tr>
+      </table>
+      <div class="ex-box">
+        <em>Déterminative</em> : L'homme <em>qui ment</em> perd la confiance. → essentielle au sens<br>
+        <em>Explicative</em> : Mon frère, <em>qui est médecin</em>, m'a soigné. → entre virgules, info supplémentaire
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>🟨 Prop. sub. complétive (conjonctive)</h3>
+      <ul>
+        <li>Introduite par la conjonction <strong>« que »</strong></li>
+        <li>Fonction : <strong>sujet, COD, attribut</strong> du verbe principal</li>
+        <li>Le verbe est souvent au <strong>subjonctif</strong> après des verbes de volonté, d'émotion, de doute</li>
+      </ul>
+      <div class="ex-box">
+        Je crois <em>qu'il viendra</em>. → COD<br>
+        Il faut <em>que tu étudies</em>. → sujet réel<br>
+        <em>Qu'il mente</em> est évident. → sujet
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>🟩 Prop. sub. circonstancielle</h3>
+      <ul>
+        <li>Joue le rôle d'un <strong>CC</strong> dans la phrase</li>
+        <li>Introduite par une <strong>conjonction de subordination</strong></li>
+      </ul>
+      <table style="margin-top:8px;">
+        <tr><th>Type</th><th>Conjonctions</th></tr>
+        <tr><td>Temps</td><td>quand, lorsque, avant que, après que…</td></tr>
+        <tr><td>Cause</td><td>parce que, puisque, car…</td></tr>
+        <tr><td>But</td><td>pour que, afin que…</td></tr>
+        <tr><td>Conséquence</td><td>de sorte que, si bien que…</td></tr>
+        <tr><td>Concession</td><td>bien que, quoique, même si…</td></tr>
+        <tr><td>Condition</td><td>si, à condition que, pourvu que…</td></tr>
+      </table>
+      <div class="ex-box">
+        Il sort <em>bien qu'il pleuve</em>. → concession<br>
+        Je travaille <em>pour que tu sois fier</em>. → but
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>🔷 Prop. sub. interrogative indirecte</h3>
+      <ul>
+        <li>Traduit une question <strong>intégrée dans la phrase</strong></li>
+        <li>Introduite par <em>si, qui, que, quand, comment, pourquoi, où…</em></li>
+        <li>Fonction : <strong>COD</strong> du verbe principal</li>
+        <li>⚠️ Pas de point d'interrogation !</li>
+      </ul>
+      <div class="ex-box">
+        Il demande <em>si tu viens</em>. → interrogation totale (oui/non)<br>
+        Elle veut savoir <em>où tu habites</em>. → interrogation partielle<br>
+        Je me demande <em>pourquoi il pleure</em>.
+      </div>
+    </div>
+
+    <div class="section fw">
+      <h3>📊 Récapitulatif — Les types de propositions</h3>
+      <table>
+        <tr><th>Type</th><th>Caractéristique</th><th>Mot introducteur</th><th>Exemple</th></tr>
+        <tr><td>Indépendante</td><td>Seule, autonome</td><td>—</td><td>Il chante.</td></tr>
+        <tr><td>Principale</td><td>Tête de la phrase complexe</td><td>—</td><td>Je crois…</td></tr>
+        <tr><td>Sub. relative</td><td>Qualifie un antécédent</td><td>qui, que, dont, où…</td><td>…le garçon qui court</td></tr>
+        <tr><td>Sub. complétive</td><td>Équivaut à un nom (COD…)</td><td>que</td><td>…qu'il viendra</td></tr>
+        <tr><td>Sub. circonstancielle</td><td>Équivaut à un CC</td><td>parce que, quand…</td><td>…parce qu'il est tard</td></tr>
+        <tr><td>Sub. interrogative indirecte</td><td>Question intégrée</td><td>si, où, qui, comment…</td><td>…si elle vient</td></tr>
+      </table>
+    </div>
+
+    <div class="section">
+      <h3>🔬 Prop. infinitive &amp; participiale</h3>
+      <ul>
+        <li><strong>Infinitive</strong> : verbe à l'infinitif avec <em>son propre sujet</em></li>
+        <li><strong>Participiale</strong> : verbe au participe avec <em>son propre sujet</em></li>
+        <li>Ces propositions sont rares mais reconnues à l'examen</li>
+      </ul>
+      <div class="ex-box">
+        J'entends <em>les oiseaux chanter</em>. → infinitive (sujet = oiseaux)<br>
+        <em>Le soleil se couchant</em>, nous rentrâmes. → participiale
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>🛠️ Méthode pour identifier</h3>
+      <ul>
+        <li>1. Compter les <strong>verbes conjugués</strong> → nombre de propositions</li>
+        <li>2. Repérer les <strong>mots introducteurs</strong> (que, qui, parce que, si…)</li>
+        <li>3. Identifier la <strong>principale</strong> (pas introduite)</li>
+        <li>4. Nommer chaque subordonnée par son type et sa fonction</li>
+      </ul>
+      <div class="ex-box">
+        <em>Je pense que Marie, qui est intelligente, réussira parce qu'elle travaille.</em><br>
+        → principale : <em>Je pense</em><br>
+        → complétive : <em>que … réussira</em> (COD)<br>
+        → relative : <em>qui est intelligente</em> (épithète de Marie)<br>
+        → circonstancielle de cause : <em>parce qu'elle travaille</em>
+      </div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="memo"><p>Une <strong>proposition indépendante</strong> se suffit à elle-même. La <strong>principale</strong> dirige les subordonnées qui lui sont rattachées. Une <strong>subordonnée relative</strong> qualifie un antécédent (qui, que, dont, où…). Une <strong>complétive</strong> est introduite par « que » et joue le rôle de COD. Une <strong>circonstancielle</strong> exprime le temps, la cause, le but, etc. L'<strong>interrogative indirecte</strong> est une question intégrée à la phrase (si, comment, pourquoi…) — sans point d'interrogation !</p></div>
+  <div class="dots">● ● ●</div><br>
+  </div></div>
+
+  </div><!-- /fiches-wrap -->
+</div><!-- /view-francais -->
+
+<!-- ══════════════════════════════════════
+     MATHS VIEW
+══════════════════════════════════════ -->
+<div id="view-maths" class="view">
+  <button class="back-btn" onclick="goHome()">← Accueil</button>
+  <div style="padding:20px;">
+    <div class="placeholder">
+      <div class="pl-icon">📐</div>
+      <h2>Mathématiques</h2>
+      <p>Les fiches de maths arrivent bientôt…<br>à toi de me dire quoi mettre ici ! ✦</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SCRIPTS
+══════════════════════════════════════ -->
+<script>
+// ─── Theme ───
+const html = document.documentElement;
+const btn  = document.getElementById('theme-toggle');
+let dark = false;
+function toggleTheme(){
+  dark = !dark;
+  html.setAttribute('data-theme', dark ? 'dark' : 'light');
+  btn.textContent = dark ? '☀️' : '🌙';
+}
+
+// ─── Navigation ───
+function goTo(view){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('view-'+view).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function goHome(){ goTo('home'); }
+
+// ─── Français tabs ───
+function showFr(n){
+  document.querySelectorAll('#fiches-fr .fiche').forEach(f=>f.classList.remove('active'));
+  document.querySelectorAll('#nav-fr .tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('fr'+n).classList.add('active');
+  document.querySelectorAll('#nav-fr .tab-btn')[n-1].classList.add('active');
+  window.scrollTo({top:document.querySelector('#fiches-fr').offsetTop-20,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
