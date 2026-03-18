@@ -164,6 +164,10 @@ body{background:var(--bg);min-height:100vh;font-family:'Nunito',sans-serif;color
 .subject-btn.sc{border-color:var(--f5m);}
 .subject-btn.sc:hover{border-color:var(--f5);}
 .subject-btn.sc .s-tag{background:var(--f5);}
+.subject-btn.te{border-color:var(--f6m);}
+.subject-btn.te:hover{border-color:var(--f6);}
+.subject-btn.te::before{background:linear-gradient(135deg,var(--f6m),transparent);}
+.subject-btn.te .s-tag{background:var(--f6);}
 .home-footer{
   margin-top:48px;font-family:'Caveat',cursive;font-size:.95rem;
   color:var(--ink-light);letter-spacing:2px;
@@ -183,6 +187,7 @@ body{background:var(--bg);min-height:100vh;font-family:'Nunito',sans-serif;color
 #view-maths .back-btn:hover{background:var(--f3);}
 #view-histgeo .back-btn:hover{background:var(--f4);}
 #view-sciences .back-btn:hover{background:var(--f5);}
+#view-techno .back-btn:hover{background:var(--f6);}
 
 /* ─────────────────────────────────────────
    SITE HEADER
@@ -466,6 +471,12 @@ tr td:first-child{font-weight:700;}
       <span class="s-icon">🔬</span>
       <span class="s-label">SVT &amp; Physique</span>
       <span class="s-count">8 fiches • Sciences complètes</span>
+      <span class="s-tag">Prêt ✓</span>
+    </button>
+    <button class="subject-btn te" onclick="goTo('techno')">
+      <span class="s-icon">⚙️</span>
+      <span class="s-label">Technologie</span>
+      <span class="s-count">6 fiches • Tout le programme</span>
       <span class="s-tag">Prêt ✓</span>
     </button>
   </div>
@@ -2946,6 +2957,518 @@ tr td:first-child{font-weight:700;}
   </div>
 </div>
 
+<!-- ══════════════════════════════════════ TECHNOLOGIE ══════════════════════════════════════ -->
+<div id="view-techno" class="view">
+  <button class="back-btn" onclick="goHome()">← Accueil</button>
+  <div class="site-header">
+    <h1>Fiches de <span class="c6">Technologie</span></h1>
+    <p>Technologie — Tout le programme de 3ème ✦ Brevet 2026</p>
+  </div>
+  <div class="nav-tabs-wrap">
+    <div class="nav-tabs" id="nav-te">
+      <button class="tab-btn t6 active" onclick="showTe(1)">🏗️ Objets Techniques</button>
+      <button class="tab-btn t3" onclick="showTe(2)">🔧 Matériaux</button>
+      <button class="tab-btn t4" onclick="showTe(3)">⚡ Énergie &amp; Systèmes</button>
+      <button class="tab-btn t5" onclick="showTe(4)">💻 Programmation</button>
+      <button class="tab-btn t2" onclick="showTe(5)">🌐 Réseaux &amp; Internet</button>
+      <button class="tab-btn t1" onclick="showTe(6)">♻️ Développement Durable</button>
+    </div>
+  </div>
+  <div class="fiches-wrap" id="fiches-te">
+
+  <!-- ══ TE 1 : OBJETS TECHNIQUES ══ -->
+  <div class="fiche fiche6 active" id="te1">
+  <div class="fiche-card">
+  <div class="fiche-header">
+    <div class="fiche-num">Technologie — Fiche nº 01</div>
+    <h2>Les Objets<br>Techniques</h2>
+    <span class="subtitle-tag">Analyse · Fonction · Structure · Usage</span>
+    <div class="fiche-emoji">🏗️</div>
+  </div>
+  <div class="fiche-body">
+    <div class="section fw">
+      <h3>📌 Définitions clés</h3>
+      <table>
+        <tr><th>Terme</th><th>Définition</th><th>Exemple</th></tr>
+        <tr><td>Objet technique</td><td>Objet fabriqué par l'homme pour répondre à un besoin</td><td>Vélo, téléphone, pont</td></tr>
+        <tr><td>Système technique</td><td>Ensemble d'objets qui interagissent pour une fonction globale</td><td>Voiture, centrale électrique</td></tr>
+        <tr><td>Produit</td><td>Objet technique commercialisé</td><td>iPhone, Airbus A320</td></tr>
+        <tr><td>Prototype</td><td>Premier exemplaire d'un objet avant fabrication en série</td><td>Maquette, modèle 3D</td></tr>
+        <tr><td>Maquette</td><td>Représentation à échelle réduite</td><td>Maquette d'architecture</td></tr>
+      </table>
+    </div>
+    <div class="section">
+      <h3>🎯 L'analyse fonctionnelle</h3>
+      <ul>
+        <li><strong>Fonction principale (FP)</strong> → ce pour quoi l'objet a été créé</li>
+        <li><strong>Fonctions contraintes (FC)</strong> → contraintes à respecter (normes, sécurité…)</li>
+        <li><strong>Bête à cornes</strong> → outil d'analyse du besoin</li>
+      </ul>
+      <div class="formula-box">Bête à cornes :<br>À qui rend-il service ? Sur quoi agit-il ?<br>→ Dans quel but ?</div>
+      <div class="ex-box">Vélo : rend service à l'utilisateur, agit sur le déplacement<br>FP : permettre de se déplacer sans moteur</div>
+    </div>
+    <div class="section">
+      <h3>🔍 Diagramme pieuvre (FAST)</h3>
+      <ul>
+        <li>Représente toutes les <strong>fonctions de service</strong></li>
+        <li>Relations entre l'objet et son <strong>milieu extérieur</strong></li>
+        <li>FP = fonction principale · FC = fonctions contraintes</li>
+        <li>Chaque relation = une fonction numérotée (F1, F2…)</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3>📐 La chaîne fonctionnelle</h3>
+      <ul>
+        <li><strong>Alimenter</strong> → source d'énergie (électricité, carburant…)</li>
+        <li><strong>Acquérir</strong> → capter l'information (capteur)</li>
+        <li><strong>Traiter</strong> → processeur, programme</li>
+        <li><strong>Communiquer</strong> → transmettre l'information</li>
+        <li><strong>Agir sur la matière</strong> → actionneur (moteur, vérin…)</li>
+      </ul>
+      <div class="formula-box">Énergie → Acquérir → Traiter → Communiquer → Agir</div>
+    </div>
+    <div class="section">
+      <h3>📊 Les niveaux de description</h3>
+      <ul>
+        <li><strong>Niveau d'usage</strong> → ce que fait l'objet pour l'utilisateur</li>
+        <li><strong>Niveau fonctionnel</strong> → comment il le fait (fonctions)</li>
+        <li><strong>Niveau structurel</strong> → comment il est fait (pièces, matériaux)</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3>📏 Les représentations</h3>
+      <ul>
+        <li><strong>Dessin technique</strong> → vues de face, dessus, côté (3 vues)</li>
+        <li><strong>Schéma</strong> → représentation symbolique</li>
+        <li><strong>Modélisation 3D</strong> → CAO (Conception Assistée par Ordinateur)</li>
+        <li><strong>Éclaté</strong> → vue montrant toutes les pièces séparées</li>
+        <li>Échelle → rapport entre taille dessin et taille réelle</li>
+      </ul>
+    </div>
+    <div class="section fw">
+      <h3>🔄 Le cycle de vie d'un produit</h3>
+      <div class="pill-row">
+        <span class="pill">1. Conception</span>
+        <span class="pill light">→</span>
+        <span class="pill">2. Fabrication</span>
+        <span class="pill light">→</span>
+        <span class="pill">3. Distribution</span>
+        <span class="pill light">→</span>
+        <span class="pill">4. Utilisation</span>
+        <span class="pill light">→</span>
+        <span class="pill">5. Fin de vie</span>
+      </div>
+      <div class="alert" style="margin-top:10px;">⚠️ À chaque étape, il faut penser à l'impact environnemental (matières premières, énergie, déchets, recyclage).</div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="memo"><p>Objet technique = fabriqué par l'homme pour un besoin. Analyse fonctionnelle : FP (fonction principale) + FC (fonctions contraintes). Bête à cornes → identifier le besoin. Chaîne fonctionnelle : Alimenter → Acquérir → Traiter → Communiquer → Agir. Cycle de vie : conception → fabrication → distribution → utilisation → fin de vie.</p></div>
+  <div class="dots">● ● ●</div><br>
+  </div></div>
+
+  <!-- ══ TE 2 : MATÉRIAUX ══ -->
+  <div class="fiche fiche3" id="te2">
+  <div class="fiche-card">
+  <div class="fiche-header">
+    <div class="fiche-num">Technologie — Fiche nº 02</div>
+    <h2>Les Matériaux</h2>
+    <span class="subtitle-tag">Familles · Propriétés · Choix · Recyclage</span>
+    <div class="fiche-emoji">🔧</div>
+  </div>
+  <div class="fiche-body">
+    <div class="section fw">
+      <h3>📦 Les 5 familles de matériaux</h3>
+      <table>
+        <tr><th>Famille</th><th>Exemples</th><th>Propriétés typiques</th></tr>
+        <tr><td>Métaux et alliages</td><td>Acier, aluminium, cuivre, inox</td><td>Résistants, conducteurs, recyclables</td></tr>
+        <tr><td>Plastiques (polymères)</td><td>PET, PVC, polyéthylène, polystyrène</td><td>Légers, isolants, moulables, peu coûteux</td></tr>
+        <tr><td>Céramiques et verres</td><td>Porcelaine, verre, béton</td><td>Durs, fragiles, résistants à la chaleur</td></tr>
+        <tr><td>Bois et dérivés</td><td>Chêne, contreplaqué, MDF</td><td>Renouvelable, isolant, usinable</td></tr>
+        <tr><td>Composites</td><td>Fibre de carbone, fibre de verre</td><td>Légers et très résistants</td></tr>
+      </table>
+    </div>
+    <div class="section">
+      <h3>🔬 Les propriétés des matériaux</h3>
+      <ul>
+        <li><strong>Mécaniques</strong> → résistance à la traction, dureté, élasticité, rigidité</li>
+        <li><strong>Physiques</strong> → conductivité thermique/électrique, densité, point de fusion</li>
+        <li><strong>Chimiques</strong> → résistance à la corrosion, à l'oxydation</li>
+        <li><strong>Sensorielles</strong> → aspect, couleur, texture, transparence</li>
+        <li><strong>Environnementales</strong> → recyclabilité, biodégradabilité, bilan carbone</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3>🛠️ Choisir un matériau</h3>
+      <ul>
+        <li>Analyser la <strong>fonction</strong> de la pièce</li>
+        <li>Identifier les <strong>contraintes</strong> (mécanique, thermique, chimique…)</li>
+        <li>Considérer le <strong>coût</strong> et la <strong>disponibilité</strong></li>
+        <li>Penser à l'<strong>impact environnemental</strong></li>
+      </ul>
+      <div class="ex-box">Casserole : fond en acier inox (résistant, conducteur de chaleur)<br>Manche en bakélite (isolant thermique, rigide)</div>
+    </div>
+    <div class="section">
+      <h3>⚙️ Les procédés de mise en forme</h3>
+      <ul>
+        <li><strong>Moulage</strong> → injection dans un moule (plastiques, métaux)</li>
+        <li><strong>Usinage</strong> → enlèvement de matière (tour, fraiseuse, perceuse)</li>
+        <li><strong>Déformation</strong> → emboutissage, forgeage (métaux)</li>
+        <li><strong>Assemblage</strong> → soudure, vissage, collage, rivetage</li>
+        <li><strong>Impression 3D</strong> → dépôt de matière couche par couche</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3>♻️ Recyclage et environnement</h3>
+      <ul>
+        <li>Métaux : très bien recyclables (aluminium : 95% d'énergie économisée)</li>
+        <li>Plastiques : triés par type (codes 1 à 7)</li>
+        <li>Verre : 100% recyclable à l'infini</li>
+        <li>Bois : compostable ou valorisation énergétique</li>
+        <li><strong>ACV</strong> = Analyse du Cycle de Vie → mesure l'impact environnemental total</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3>🏷️ Les matériaux « intelligents »</h3>
+      <ul>
+        <li><strong>Alliage à mémoire de forme</strong> → reprend sa forme initiale quand chauffé</li>
+        <li><strong>Matériaux piézoélectriques</strong> → génèrent du courant sous pression</li>
+        <li><strong>Nanomatériaux</strong> → propriétés exceptionnelles à l'échelle nanométrique</li>
+        <li><strong>Biomatériaux</strong> → compatibles avec le corps humain (implants)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="memo"><p>5 familles : métaux · plastiques · céramiques/verres · bois · composites. Propriétés : mécaniques, physiques, chimiques, sensorielles, environnementales. Choisir un matériau selon la fonction + contraintes + coût + environnement. ACV = Analyse du Cycle de Vie. Métaux et verre : très recyclables.</p></div>
+  <div class="dots">● ● ●</div><br>
+  </div></div>
+
+  <!-- ══ TE 3 : ÉNERGIE & SYSTÈMES ══ -->
+  <div class="fiche fiche4" id="te3">
+  <div class="fiche-card">
+  <div class="fiche-header">
+    <div class="fiche-num">Technologie — Fiche nº 03</div>
+    <h2>Énergie<br>&amp; Systèmes</h2>
+    <span class="subtitle-tag">Conversion · Systèmes automatisés · Capteurs · Actionneurs</span>
+    <div class="fiche-emoji">⚡</div>
+  </div>
+  <div class="fiche-body">
+    <div class="section fw">
+      <h3>⚡ Les formes d'énergie</h3>
+      <table>
+        <tr><th>Forme</th><th>Exemples</th><th>Convertisseur courant</th></tr>
+        <tr><td>Électrique</td><td>Courant secteur, batterie</td><td>Moteur, résistance, LED</td></tr>
+        <tr><td>Mécanique</td><td>Mouvement, rotation</td><td>Générateur, alternateur</td></tr>
+        <tr><td>Thermique</td><td>Chaleur, froid</td><td>Radiateur, climatiseur</td></tr>
+        <tr><td>Chimique</td><td>Carburant, pile</td><td>Moteur thermique, pile à combustible</td></tr>
+        <tr><td>Rayonnante</td><td>Lumière, solaire</td><td>Panneau photovoltaïque, LED</td></tr>
+        <tr><td>Nucléaire</td><td>Uranium</td><td>Centrale nucléaire → électricité</td></tr>
+      </table>
+    </div>
+    <div class="section">
+      <h3>🔄 La conversion d'énergie</h3>
+      <ul>
+        <li>L'énergie se <strong>transforme</strong> mais se conserve (1er principe)</li>
+        <li>Toute conversion a un <strong>rendement</strong> &lt; 100% (pertes en chaleur)</li>
+        <li><strong>Rendement</strong> = Énergie utile / Énergie totale × 100</li>
+      </ul>
+      <div class="formula-box">η = Énergie utile / Énergie consommée × 100 (%)</div>
+      <div class="ex-box">Moteur électrique : consomme 1000 W, produit 900 W mécaniques<br>Rendement = 900/1000 × 100 = 90%</div>
+    </div>
+    <div class="section">
+      <h3>🤖 Les systèmes automatisés</h3>
+      <ul>
+        <li>Système qui fonctionne <strong>sans intervention humaine continue</strong></li>
+        <li><strong>Partie commande</strong> → cerveau du système (traite l'information)</li>
+        <li><strong>Partie opérative</strong> → bras du système (réalise l'action)</li>
+      </ul>
+      <div class="formula-box">Informations → Partie commande → Ordres → Partie opérative → Effets</div>
+    </div>
+    <div class="section">
+      <h3>📡 Les capteurs</h3>
+      <ul>
+        <li>Transforment une grandeur physique en signal exploitable</li>
+        <li><strong>Capteur de température</strong> → thermistance, thermocouple</li>
+        <li><strong>Capteur de lumière</strong> → photorésistance, phototransistor</li>
+        <li><strong>Capteur de position</strong> → fin de course, encodeur</li>
+        <li><strong>Capteur de vitesse</strong> → tachymètre</li>
+        <li><strong>Capteur de pression</strong> → manomètre</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3>⚙️ Les actionneurs</h3>
+      <ul>
+        <li>Transforment un signal de commande en action physique</li>
+        <li><strong>Moteur électrique</strong> → mouvement de rotation</li>
+        <li><strong>Vérin</strong> → mouvement de translation (hydraulique ou pneumatique)</li>
+        <li><strong>Résistance chauffante</strong> → chaleur</li>
+        <li><strong>LED / lampe</strong> → lumière</li>
+        <li><strong>Haut-parleur</strong> → son</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3>🔁 La boucle de régulation</h3>
+      <ul>
+        <li>Système avec <strong>retour d'information</strong> (feedback)</li>
+        <li>Compare la valeur mesurée avec la valeur souhaitée</li>
+        <li>Corrige automatiquement les écarts</li>
+        <li>Exemples : thermostat, régulateur de vitesse, pilote automatique</li>
+      </ul>
+      <div class="formula-box">Consigne → Comparateur → Correcteur → Actionneur → Capteur → retour</div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="memo"><p>6 formes d'énergie : électrique, mécanique, thermique, chimique, rayonnante, nucléaire. Rendement = énergie utile / énergie totale × 100. Système automatisé = Partie commande + Partie opérative. Capteurs (mesure) → Partie commande (traitement) → Actionneurs (action). Boucle de régulation = système avec retour d'information.</p></div>
+  <div class="dots">● ● ●</div><br>
+  </div></div>
+
+  <!-- ══ TE 4 : PROGRAMMATION ══ -->
+  <div class="fiche fiche5" id="te4">
+  <div class="fiche-card">
+  <div class="fiche-header">
+    <div class="fiche-num">Technologie — Fiche nº 04</div>
+    <h2>Programmation<br>&amp; Algorithmique</h2>
+    <span class="subtitle-tag">Scratch · Python · Algorithmes · Microcontrôleur</span>
+    <div class="fiche-emoji">💻</div>
+  </div>
+  <div class="fiche-body">
+    <div class="section fw">
+      <h3>📌 Concepts fondamentaux</h3>
+      <table>
+        <tr><th>Concept</th><th>Définition</th><th>Exemple</th></tr>
+        <tr><td>Algorithme</td><td>Suite d'instructions pour résoudre un problème</td><td>Recette de cuisine</td></tr>
+        <tr><td>Programme</td><td>Algorithme traduit dans un langage informatique</td><td>Code Python</td></tr>
+        <tr><td>Variable</td><td>Emplacement mémoire qui stocke une valeur</td><td>age = 15</td></tr>
+        <tr><td>Instruction</td><td>Ordre élémentaire donné à la machine</td><td>print("Bonjour")</td></tr>
+        <tr><td>Fonction</td><td>Bloc d'instructions réutilisable</td><td>def calcul():</td></tr>
+        <tr><td>Boucle</td><td>Répétition d'instructions</td><td>for, while</td></tr>
+      </table>
+    </div>
+    <div class="section">
+      <h3>🔀 Les structures de contrôle</h3>
+      <ul>
+        <li><strong>Séquence</strong> → instructions exécutées l'une après l'autre</li>
+        <li><strong>Condition (Si/Sinon)</strong> → branchement selon un test</li>
+        <li><strong>Boucle bornée</strong> → répétition un nombre fixe de fois (for)</li>
+        <li><strong>Boucle non bornée</strong> → répétition tant qu'une condition est vraie (while)</li>
+      </ul>
+      <div class="ex-box" style="font-family:monospace;font-size:.85rem;line-height:1.8;">
+        if temperature &gt; 30:<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;print("Il fait chaud")<br>
+        else:<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;print("Température normale")
+      </div>
+    </div>
+    <div class="section">
+      <h3>🐍 Python — bases</h3>
+      <ul>
+        <li><strong>print()</strong> → afficher un texte</li>
+        <li><strong>input()</strong> → demander une saisie</li>
+        <li><strong>int(), float(), str()</strong> → convertir des types</li>
+        <li><strong>len()</strong> → longueur d'une liste ou chaîne</li>
+        <li><strong>#</strong> → commentaire (ignoré par Python)</li>
+      </ul>
+      <div class="ex-box" style="font-family:monospace;font-size:.85rem;line-height:1.8;">
+        for i in range(5):<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;print(i)  # affiche 0, 1, 2, 3, 4
+      </div>
+    </div>
+    <div class="section">
+      <h3>🎨 Scratch — blocs clés</h3>
+      <ul>
+        <li><strong>Événements</strong> → Quand le drapeau vert est cliqué</li>
+        <li><strong>Mouvement</strong> → avancer de X pas, tourner</li>
+        <li><strong>Contrôle</strong> → si/alors, répéter, attendre</li>
+        <li><strong>Capteurs</strong> → si on touche…, distance</li>
+        <li><strong>Variables</strong> → créer, mettre à, ajouter</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3>🤖 Microcontrôleur (Arduino, BBC Micro:bit)</h3>
+      <ul>
+        <li>Petit ordinateur programmable pour contrôler des systèmes</li>
+        <li><strong>Entrées</strong> → capteurs (luminosité, température, bouton…)</li>
+        <li><strong>Sorties</strong> → LED, moteur, buzzer, afficheur…</li>
+        <li>Programme chargé dans la mémoire → s'exécute en boucle</li>
+        <li>Exemples : robot, station météo, alarme, domotique</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3>🧮 Algorithmique — méthode</h3>
+      <ul>
+        <li>1. Comprendre le <strong>problème</strong></li>
+        <li>2. Identifier les <strong>données d'entrée et de sortie</strong></li>
+        <li>3. Écrire l'algorithme en <strong>pseudo-code</strong></li>
+        <li>4. <strong>Tester</strong> avec des exemples (jeu de tests)</li>
+        <li>5. Traduire en <strong>code</strong> (Python, Scratch…)</li>
+      </ul>
+      <div class="alert">⚠️ Un algorithme doit être : précis, fini (se termine), et donner le bon résultat pour toutes les entrées valides.</div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="memo"><p>Algorithme = suite d'instructions pour résoudre un problème. 3 structures : séquence · condition (si/sinon) · boucle (for/while). Python : print(), input(), range(), if/else. Scratch : blocs événements, mouvement, contrôle. Microcontrôleur : entrées (capteurs) + traitement + sorties (actionneurs).</p></div>
+  <div class="dots">● ● ●</div><br>
+  </div></div>
+
+  <!-- ══ TE 5 : RÉSEAUX & INTERNET ══ -->
+  <div class="fiche fiche2" id="te5">
+  <div class="fiche-card">
+  <div class="fiche-header">
+    <div class="fiche-num">Technologie — Fiche nº 05</div>
+    <h2>Réseaux<br>&amp; Internet</h2>
+    <span class="subtitle-tag">Protocoles · Web · Données · Sécurité</span>
+    <div class="fiche-emoji">🌐</div>
+  </div>
+  <div class="fiche-body">
+    <div class="section fw">
+      <h3>📡 Qu'est-ce qu'un réseau informatique ?</h3>
+      <p>Un <strong>réseau</strong> est un ensemble d'équipements reliés entre eux pour échanger des données. Internet est le réseau mondial des réseaux.</p>
+      <table style="margin-top:10px;">
+        <tr><th>Type de réseau</th><th>Portée</th><th>Exemples</th></tr>
+        <tr><td>LAN (Local Area Network)</td><td>Bâtiment, maison</td><td>Wi-Fi maison, réseau école</td></tr>
+        <tr><td>WAN (Wide Area Network)</td><td>Mondial</td><td>Internet</td></tr>
+        <tr><td>Filaire</td><td>Variable</td><td>Câble Ethernet, fibre optique</td></tr>
+        <tr><td>Sans fil</td><td>Variable</td><td>Wi-Fi, Bluetooth, 4G/5G</td></tr>
+      </table>
+    </div>
+    <div class="section">
+      <h3>🔢 Adresses et protocoles</h3>
+      <ul>
+        <li><strong>Adresse IP</strong> → identifiant unique d'un équipement sur le réseau (ex : 192.168.1.1)</li>
+        <li><strong>Adresse MAC</strong> → identifiant physique d'une carte réseau</li>
+        <li><strong>DNS</strong> → traduit un nom de domaine (google.com) en adresse IP</li>
+        <li><strong>HTTP/HTTPS</strong> → protocole de transfert de pages web (S = sécurisé)</li>
+        <li><strong>TCP/IP</strong> → protocoles de base d'Internet</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3>🕸️ Le Web vs Internet</h3>
+      <ul>
+        <li><strong>Internet</strong> = infrastructure réseau mondiale (câbles, routeurs, satellites)</li>
+        <li><strong>Web (WWW)</strong> = service d'accès à des pages web via HTTP</li>
+        <li>Le Web est un usage d'Internet (comme l'email, le streaming…)</li>
+        <li><strong>URL</strong> = adresse d'une page web (https://www.exemple.com/page)</li>
+        <li><strong>Navigateur</strong> = logiciel pour accéder au web (Chrome, Firefox…)</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3>💾 Les données numériques</h3>
+      <ul>
+        <li>Toute donnée numérique = suite de 0 et 1 (<strong>bits</strong>)</li>
+        <li>1 octet = 8 bits · 1 Ko = 1024 octets · 1 Mo = 1024 Ko · 1 Go = 1024 Mo</li>
+        <li><strong>Codage</strong> → représentation d'une information en binaire</li>
+        <li>Texte, image, son, vidéo → tous stockés en binaire</li>
+        <li><strong>Compression</strong> → réduire la taille d'un fichier (zip, mp3, jpg)</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3>🔐 Sécurité numérique</h3>
+      <ul>
+        <li><strong>Virus / malware</strong> → programme malveillant</li>
+        <li><strong>Phishing</strong> → usurpation d'identité par email ou faux site</li>
+        <li><strong>Mot de passe fort</strong> → long, mélange lettres/chiffres/symboles</li>
+        <li><strong>Chiffrement</strong> → protéger les données (HTTPS, VPN)</li>
+        <li><strong>Pare-feu (firewall)</strong> → filtre les connexions réseau</li>
+        <li><strong>2FA</strong> → double authentification</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3>📊 Données personnelles</h3>
+      <ul>
+        <li><strong>RGPD</strong> → Règlement Général sur la Protection des Données (Europe, 2018)</li>
+        <li>Droit d'accès, de rectification et d'effacement des données</li>
+        <li><strong>CNIL</strong> → Commission Nationale Informatique et Libertés (France)</li>
+        <li>Cookies → petits fichiers stockés par les sites web</li>
+        <li>Ne jamais partager ses identifiants !</li>
+      </ul>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="memo"><p>Internet = infrastructure réseau mondiale. Web = service de pages HTTP/HTTPS. Adresse IP = identifiant réseau. DNS traduit les noms de domaine. 1 octet = 8 bits. RGPD = protection des données personnelles en Europe. Sécurité : mot de passe fort, HTTPS, 2FA, méfiance face au phishing.</p></div>
+  <div class="dots">● ● ●</div><br>
+  </div></div>
+
+  <!-- ══ TE 6 : DÉVELOPPEMENT DURABLE ══ -->
+  <div class="fiche fiche1" id="te6">
+  <div class="fiche-card">
+  <div class="fiche-header">
+    <div class="fiche-num">Technologie — Fiche nº 06</div>
+    <h2>Développement<br>Durable &amp; Innovation</h2>
+    <span class="subtitle-tag">Éco-conception · Impact · Innovation · Société</span>
+    <div class="fiche-emoji">♻️</div>
+  </div>
+  <div class="fiche-body">
+    <div class="section fw">
+      <h3>🌱 Le développement durable en technologie</h3>
+      <p>La technologie doit répondre aux besoins d'aujourd'hui <strong>sans compromettre les besoins des générations futures</strong>. En technologie, cela se traduit par l'éco-conception, le recyclage, et l'efficacité énergétique.</p>
+      <div class="pill-row">
+        <span class="pill">Économique</span>
+        <span class="pill light">Rentable et durable</span>
+        <span class="pill">Social</span>
+        <span class="pill light">Utile et équitable</span>
+        <span class="pill">Environnemental</span>
+        <span class="pill light">Propre et sobre</span>
+      </div>
+    </div>
+    <div class="section">
+      <h3>🎨 L'éco-conception</h3>
+      <ul>
+        <li>Concevoir un produit en intégrant l'environnement <strong>dès le début</strong></li>
+        <li>Réduire la consommation de matières premières</li>
+        <li>Utiliser des matériaux recyclés ou recyclables</li>
+        <li>Minimiser la consommation d'énergie à l'usage</li>
+        <li>Faciliter le démontage et le recyclage en fin de vie</li>
+        <li><strong>Durabilité</strong> → produit conçu pour durer longtemps</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3>📊 L'ACV (Analyse du Cycle de Vie)</h3>
+      <ul>
+        <li>Évalue l'impact environnemental de A à Z</li>
+        <li>De l'extraction des matières premières à la fin de vie</li>
+        <li>Indicateurs : CO₂ émis, eau consommée, énergie dépensée</li>
+        <li>Permet de comparer deux produits ou deux procédés</li>
+      </ul>
+      <div class="formula-box">Extraction → Fabrication → Transport → Usage → Fin de vie</div>
+    </div>
+    <div class="section">
+      <h3>💡 L'innovation technologique</h3>
+      <ul>
+        <li><strong>Innovation incrémentale</strong> → amélioration d'un produit existant</li>
+        <li><strong>Innovation radicale</strong> → rupture totale avec l'existant</li>
+        <li>Dépôt de <strong>brevet</strong> → protège une invention (20 ans)</li>
+        <li>Propriété intellectuelle → droits d'auteur, marques, brevets</li>
+        <li>Open source → partage libre du code ou du design</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3>🌍 Enjeux sociétaux</h3>
+      <ul>
+        <li><strong>Fracture numérique</strong> → inégalité d'accès aux technologies</li>
+        <li><strong>Obsolescence programmée</strong> → produits conçus pour tomber en panne</li>
+        <li><strong>Économie circulaire</strong> → réduire, réutiliser, recycler</li>
+        <li>Déchets électroniques (DEEE) → problème mondial</li>
+        <li>Technologies et emploi → automatisation, nouveaux métiers</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3>🔋 Énergies renouvelables en technologie</h3>
+      <ul>
+        <li><strong>Solaire photovoltaïque</strong> → cellules convertissent lumière en électricité</li>
+        <li><strong>Éolien</strong> → vent → rotation → générateur</li>
+        <li><strong>Hydraulique</strong> → eau → turbine → générateur</li>
+        <li><strong>Stockage</strong> → batteries, piles à hydrogène (enjeu crucial)</li>
+        <li>Maison passive, bâtiment à énergie positive (BEPOS)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="memo"><p>Développement durable : 3 piliers = économique + social + environnemental. Éco-conception = intégrer l'environnement dès la conception. ACV = analyse de l'impact de l'extraction à la fin de vie. Innovation : incrémentale (amélioration) vs radicale (rupture). Économie circulaire : réduire, réutiliser, recycler. Brevet = protection d'une invention (20 ans).</p></div>
+  <div class="dots">● ● ●</div><br>
+  </div></div>
+
+  </div>
+</div>
+
 <!-- ══════════════════════════════════════ SCRIPTS ══════════════════════════════════════ -->
 <script>
 // ─── Theme ───
@@ -2990,6 +3513,7 @@ function showFr(n){ showTab('fr','nav-fr','fiches-fr',n); }
 function showMa(n){ showTab('ma','nav-ma','fiches-ma',n); }
 function showHg(n){ showTab('hg','nav-hg','fiches-hg',n); }
 function showSc(n){ showTab('sc','nav-sc','fiches-sc',n); }
+function showTe(n){ showTab('te','nav-te','fiches-te',n); }
 </script>
 </body>
 </html>
