@@ -120,7 +120,8 @@ body{background:var(--bg);min-height:100vh;font-family:'Nunito',sans-serif;color
   line-height:1.6;
 }
 .home-promise strong{color:var(--f5);}
-.subject-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;max-width:600px;width:100%;}
+.subject-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;max-width:640px;width:100%;}
+@media(min-width:600px){.subject-grid{grid-template-columns:repeat(3,1fr);max-width:760px;}}
 @media(max-width:480px){.subject-grid{grid-template-columns:1fr;}}
 .subject-btn{
   display:flex;flex-direction:column;align-items:center;gap:10px;
@@ -168,6 +169,15 @@ body{background:var(--bg);min-height:100vh;font-family:'Nunito',sans-serif;color
 .subject-btn.te:hover{border-color:var(--f6);}
 .subject-btn.te::before{background:linear-gradient(135deg,var(--f6m),transparent);}
 .subject-btn.te .s-tag{background:var(--f6);}
+.subject-btn.outil{border-color:var(--f8m);}
+.subject-btn.outil:hover{border-color:var(--f8);}
+.subject-btn.outil::before{background:linear-gradient(135deg,var(--f8m),transparent);}
+.subject-btn.outil .s-tag{background:var(--f8);}
+.subject-btn.flash{border-color:var(--f7m);}
+.subject-btn.flash:hover{border-color:var(--f7);}
+.subject-btn.flash::before{background:linear-gradient(135deg,var(--f7m),transparent);}
+.subject-btn.flash .s-tag{background:var(--f7);}
+@media(min-width:640px){.subject-grid{grid-template-columns:repeat(3,1fr);max-width:820px;}}
 .home-footer{
   margin-top:48px;font-family:'Caveat',cursive;font-size:.95rem;
   color:var(--ink-light);letter-spacing:2px;
@@ -188,6 +198,8 @@ body{background:var(--bg);min-height:100vh;font-family:'Nunito',sans-serif;color
 #view-histgeo .back-btn:hover{background:var(--f4);}
 #view-sciences .back-btn:hover{background:var(--f5);}
 #view-techno .back-btn:hover{background:var(--f6);}
+#view-outils .back-btn:hover{background:var(--f8);}
+#view-flashcards .back-btn:hover{background:var(--f7);}
 
 /* ─────────────────────────────────────────
    SITE HEADER
@@ -432,6 +444,31 @@ tr td:first-child{font-weight:700;}
 [data-theme="dark"] .fiche6 .alert{color:#80b0ff;}
 [data-theme="dark"] .fiche7 .alert{color:#ff9090;}
 [data-theme="dark"] .fiche8 .alert{color:#d090ff;}
+
+/* ── Calculatrice ── */
+.calc-btn{padding:12px 6px;border-radius:10px;border:none;cursor:pointer;font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:700;transition:all .2s;}
+.calc-btn.num{background:var(--bg);color:var(--ink);border:2px solid var(--f8m);}
+.calc-btn.num:hover{background:var(--f8m);}
+.calc-btn.op{background:var(--f8l);color:var(--f8);border:2px solid var(--f8m);}
+.calc-btn.op:hover{background:var(--f8m);color:white;}
+.calc-btn.sci{background:var(--f2l);color:var(--f2);border:2px solid var(--f2m);font-size:.82rem;}
+.calc-btn.sci:hover{background:var(--f2m);}
+.calc-btn.danger{background:var(--f7l);color:var(--f7);border:2px solid var(--f7m);}
+.calc-btn.danger:hover{background:var(--f7);color:white;}
+.calc-btn.equals{background:var(--f8);color:white;font-size:1.2rem;}
+.calc-btn.equals:hover{background:var(--f2);}
+/* ── Formules ── */
+.form-bloc{padding:8px 14px;margin:5px 0;border-radius:10px;font-family:'Nunito',sans-serif;font-size:.87rem;color:var(--sec-text);border-left:3px solid var(--f3);background:var(--f3l);line-height:1.6;}
+[data-c="f5"].form-bloc{border-left-color:var(--f5);background:var(--f5l);}
+[data-c="f1"].form-bloc{border-left-color:var(--f1);background:var(--f1l);}
+[data-c="f2"].form-bloc{border-left-color:var(--f2);background:var(--f2l);}
+/* ── Convertisseur ── */
+.conv-tab{padding:7px 14px;border-radius:20px;border:2px solid var(--f4m);background:var(--bg2);color:var(--f4);font-family:'Caveat',cursive;font-size:.95rem;font-weight:700;cursor:pointer;transition:all .2s;}
+.conv-tab.active,.conv-tab:hover{background:var(--f4);color:white;border-color:var(--f4);}
+/* ── Flash Cards ── */
+.flash-cat-btn{padding:9px 20px;border-radius:50px;border:2.5px solid var(--f7m);background:var(--bg2);color:var(--f7);font-family:'Caveat',cursive;font-size:1rem;font-weight:700;cursor:pointer;transition:all .25s;}
+.flash-cat-btn.active,.flash-cat-btn:hover{background:var(--f7);color:white;border-color:var(--f7);}
+.fc-flipped #fc-inner{transform:rotateY(180deg);}
 </style>
 </head>
 <body>
@@ -478,6 +515,18 @@ tr td:first-child{font-weight:700;}
       <span class="s-label">Technologie</span>
       <span class="s-count">6 fiches • Tout le programme</span>
       <span class="s-tag">Prêt ✓</span>
+    </button>
+    <button class="subject-btn outil" onclick="goTo('outils')">
+      <span class="s-icon">🧮</span>
+      <span class="s-label">Boîte à Outils</span>
+      <span class="s-count">Calculatrice · Formules · Convertisseur</span>
+      <span class="s-tag">Nouveau ✨</span>
+    </button>
+    <button class="subject-btn flash" onclick="goTo('flashcards')">
+      <span class="s-icon">🃏</span>
+      <span class="s-label">Flash Cards</span>
+      <span class="s-count">50 questions par matière</span>
+      <span class="s-tag">Nouveau ✨</span>
     </button>
   </div>
   <p class="home-footer">✦ &nbsp; fait avec ❤️ pour le brevet 2026 &nbsp; ✦</p>
@@ -2969,8 +3018,7 @@ tr td:first-child{font-weight:700;}
       <button class="tab-btn t6 active" onclick="showTe(1)">🏗️ Objets Techniques</button>
       <button class="tab-btn t3" onclick="showTe(2)">🔧 Matériaux</button>
       <button class="tab-btn t4" onclick="showTe(3)">⚡ Énergie &amp; Systèmes</button>
-      <button class="tab-btn t5" onclick="showTe(4)">💻 Algorithmique</button>
-      <button class="tab-btn t8" onclick="showTe(7)">🐱 Scratch</button>
+      <button class="tab-btn t5" onclick="showTe(4)">💻 Prog. &amp; Scratch</button>
       <button class="tab-btn t2" onclick="showTe(5)">🌐 Réseaux &amp; Internet</button>
       <button class="tab-btn t1" onclick="showTe(6)">♻️ Dév. Durable</button>
     </div>
@@ -3741,6 +3789,284 @@ tr td:first-child{font-weight:700;}
   </div>
 </div>
 
+<!-- ══════════════════════════════════════ OUTILS ══════════════════════════════════════ -->
+<div id="view-outils" class="view">
+  <button class="back-btn" onclick="goHome()">← Accueil</button>
+  <div class="site-header">
+    <h1>Boîte à <span style="color:var(--f8)">Outils</span></h1>
+    <p>Calculatrice · Formules · Convertisseur · Tableau périodique</p>
+  </div>
+
+  <div style="max-width:1020px;margin:0 auto;padding:10px 20px 80px;display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+
+  <!-- ── CALCULATRICE ── -->
+  <div style="grid-column:1/-1;background:var(--bg2);border-radius:20px;box-shadow:var(--shadow);overflow:hidden;">
+    <div style="background:linear-gradient(135deg,var(--f8m),var(--f8l));border-bottom:3px solid var(--f8m);padding:20px 28px;">
+      <div style="font-family:'Caveat',cursive;font-size:.75rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;opacity:.5;color:var(--f8);">Outil nº 01</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:1.8rem;font-style:italic;color:var(--ink);">🧮 Calculatrice Scientifique</h2>
+    </div>
+    <div style="padding:20px 28px;">
+      <div id="calc-screen" style="background:var(--bg);border:2px solid var(--f8m);border-radius:14px;padding:14px 20px;text-align:right;font-family:monospace;font-size:1.4rem;color:var(--ink);min-height:60px;margin-bottom:14px;word-break:break-all;">0</div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;" id="calc-btns">
+        <!-- Ligne 1 -->
+        <button onclick="calcFn('sin(')" class="calc-btn sci">sin(</button>
+        <button onclick="calcFn('cos(')" class="calc-btn sci">cos(</button>
+        <button onclick="calcFn('tan(')" class="calc-btn sci">tan(</button>
+        <button onclick="calcFn('Math.sqrt(')" class="calc-btn sci">√(</button>
+        <button onclick="calcFn('Math.PI')" class="calc-btn sci">π</button>
+        <!-- Ligne 2 -->
+        <button onclick="calcFn('(')" class="calc-btn op">(</button>
+        <button onclick="calcFn(')')" class="calc-btn op">)</button>
+        <button onclick="calcFn('**')" class="calc-btn op">xⁿ</button>
+        <button onclick="calcClear()" class="calc-btn danger">C</button>
+        <button onclick="calcDel()" class="calc-btn danger">⌫</button>
+        <!-- Ligne 3 -->
+        <button onclick="calcFn('7')" class="calc-btn num">7</button>
+        <button onclick="calcFn('8')" class="calc-btn num">8</button>
+        <button onclick="calcFn('9')" class="calc-btn num">9</button>
+        <button onclick="calcFn('/')" class="calc-btn op">÷</button>
+        <button onclick="calcFn('%')" class="calc-btn op">%</button>
+        <!-- Ligne 4 -->
+        <button onclick="calcFn('4')" class="calc-btn num">4</button>
+        <button onclick="calcFn('5')" class="calc-btn num">5</button>
+        <button onclick="calcFn('6')" class="calc-btn num">6</button>
+        <button onclick="calcFn('*')" class="calc-btn op">×</button>
+        <button onclick="calcFn('1/(')" class="calc-btn sci">1/x</button>
+        <!-- Ligne 5 -->
+        <button onclick="calcFn('1')" class="calc-btn num">1</button>
+        <button onclick="calcFn('2')" class="calc-btn num">2</button>
+        <button onclick="calcFn('3')" class="calc-btn num">3</button>
+        <button onclick="calcFn('-')" class="calc-btn op">−</button>
+        <button onclick="calcFn('Math.log(')" class="calc-btn sci">log</button>
+        <!-- Ligne 6 -->
+        <button onclick="calcFn('0')" class="calc-btn num" style="grid-column:span 2">0</button>
+        <button onclick="calcFn('.')" class="calc-btn num">.</button>
+        <button onclick="calcFn('+')" class="calc-btn op">+</button>
+        <button onclick="calcEquals()" class="calc-btn equals">=</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FORMULES MATHS ── -->
+  <div style="background:var(--bg2);border-radius:20px;box-shadow:var(--shadow);overflow:hidden;">
+    <div style="background:linear-gradient(135deg,var(--f3m),var(--f3l));border-bottom:3px solid var(--f3m);padding:16px 22px;">
+      <h2 style="font-family:'Playfair Display',serif;font-size:1.4rem;font-style:italic;color:var(--ink);">📐 Formules Maths</h2>
+    </div>
+    <div style="padding:16px 20px;max-height:420px;overflow-y:auto;">
+      <div class="form-bloc" data-c="f3"><strong>Pythagore</strong> : BC² = AB² + AC²</div>
+      <div class="form-bloc" data-c="f3"><strong>Thalès</strong> : AD/AB = AE/AC = DE/BC</div>
+      <div class="form-bloc" data-c="f3"><strong>Affine</strong> : f(x) = ax + b (pente a, ordonnée b)</div>
+      <div class="form-bloc" data-c="f3"><strong>Coeff. directeur</strong> : a = (y₂−y₁)/(x₂−x₁)</div>
+      <div class="form-bloc" data-c="f3"><strong>Discriminant</strong> : Δ = b²−4ac</div>
+      <div class="form-bloc" data-c="f3"><strong>Solutions Δ&gt;0</strong> : x = (−b ± √Δ) / 2a</div>
+      <div class="form-bloc" data-c="f3"><strong>(a+b)²</strong> = a² + 2ab + b²</div>
+      <div class="form-bloc" data-c="f3"><strong>(a−b)²</strong> = a² − 2ab + b²</div>
+      <div class="form-bloc" data-c="f3"><strong>(a+b)(a−b)</strong> = a² − b²</div>
+      <div class="form-bloc" data-c="f3"><strong>Milieu</strong> : xₘ=(x₁+x₂)/2 · yₘ=(y₁+y₂)/2</div>
+      <div class="form-bloc" data-c="f3"><strong>Distance</strong> : d = √((Δx)²+(Δy)²)</div>
+      <div class="form-bloc" data-c="f3"><strong>Moyenne</strong> = Σ(xᵢ·nᵢ) / N</div>
+      <div class="form-bloc" data-c="f3"><strong>Proba contraire</strong> : P(Ā) = 1−P(A)</div>
+      <div class="form-bloc" data-c="f3"><strong>Trigonométrie</strong> : sin=Opp/Hyp · cos=Adj/Hyp · tan=Opp/Adj</div>
+      <div class="form-bloc" data-c="f3"><strong>sin²α + cos²α</strong> = 1</div>
+    </div>
+  </div>
+
+  <!-- ── FORMULES PHYSIQUE-CHIMIE ── -->
+  <div style="background:var(--bg2);border-radius:20px;box-shadow:var(--shadow);overflow:hidden;">
+    <div style="background:linear-gradient(135deg,var(--f5m),var(--f5l));border-bottom:3px solid var(--f5m);padding:16px 22px;">
+      <h2 style="font-family:'Playfair Display',serif;font-size:1.4rem;font-style:italic;color:var(--ink);">⚗️ Formules Physique-Chimie</h2>
+    </div>
+    <div style="padding:16px 20px;max-height:420px;overflow-y:auto;">
+      <div class="form-bloc" data-c="f5"><strong>Loi d'Ohm</strong> : U = R × I</div>
+      <div class="form-bloc" data-c="f5"><strong>Puissance</strong> : P = U × I (Watts)</div>
+      <div class="form-bloc" data-c="f5"><strong>Énergie</strong> : E = P × t (Joules)</div>
+      <div class="form-bloc" data-c="f5"><strong>Série</strong> : U = U₁+U₂ · I constant</div>
+      <div class="form-bloc" data-c="f5"><strong>Dérivation</strong> : I = I₁+I₂ · U constant</div>
+      <div class="form-bloc" data-c="f5"><strong>Poids</strong> : P = m × g (g ≈ 10 N/kg)</div>
+      <div class="form-bloc" data-c="f5"><strong>Vitesse</strong> : v = d/t · d = v×t · t = d/v</div>
+      <div class="form-bloc" data-c="f5"><strong>Énergie cinétique</strong> : Ec = ½mv²</div>
+      <div class="form-bloc" data-c="f5"><strong>Énergie potentielle</strong> : Ep = mgh</div>
+      <div class="form-bloc" data-c="f5"><strong>Rendement</strong> : η = E_utile/E_totale × 100%</div>
+      <div class="form-bloc" data-c="f5"><strong>Son dans l'air</strong> : v ≈ 340 m/s</div>
+      <div class="form-bloc" data-c="f5"><strong>Lumière (vide)</strong> : c = 3×10⁸ m/s</div>
+      <div class="form-bloc" data-c="f5"><strong>Atome</strong> : Z = nb protons = nb électrons</div>
+      <div class="form-bloc" data-c="f5"><strong>Photosynthèse</strong> : CO₂ + H₂O + lumière → glucose + O₂</div>
+    </div>
+  </div>
+
+  <!-- ── FORMULES GÉOMÉTRIE ── -->
+  <div style="background:var(--bg2);border-radius:20px;box-shadow:var(--shadow);overflow:hidden;">
+    <div style="background:linear-gradient(135deg,var(--f1m),var(--f1l));border-bottom:3px solid var(--f1m);padding:16px 22px;">
+      <h2 style="font-family:'Playfair Display',serif;font-size:1.4rem;font-style:italic;color:var(--ink);">📏 Aires &amp; Volumes</h2>
+    </div>
+    <div style="padding:16px 20px;max-height:420px;overflow-y:auto;">
+      <div class="form-bloc" data-c="f1"><strong>Triangle</strong> : A = base × hauteur / 2</div>
+      <div class="form-bloc" data-c="f1"><strong>Rectangle</strong> : A = L × l</div>
+      <div class="form-bloc" data-c="f1"><strong>Disque</strong> : A = π × r²</div>
+      <div class="form-bloc" data-c="f1"><strong>Cercle périmètre</strong> : P = 2πr</div>
+      <div class="form-bloc" data-c="f1"><strong>Trapèze</strong> : A = (B+b) × h / 2</div>
+      <div class="form-bloc" data-c="f1"><strong>Cylindre</strong> : V = π × r² × h</div>
+      <div class="form-bloc" data-c="f1"><strong>Cône</strong> : V = π × r² × h / 3</div>
+      <div class="form-bloc" data-c="f1"><strong>Sphère volume</strong> : V = (4/3) × π × r³</div>
+      <div class="form-bloc" data-c="f1"><strong>Sphère aire</strong> : A = 4πr²</div>
+      <div class="form-bloc" data-c="f1"><strong>Pyramide</strong> : V = Abase × h / 3</div>
+      <div class="form-bloc" data-c="f1"><strong>Prisme</strong> : V = Abase × h</div>
+    </div>
+  </div>
+
+  <!-- ── CONVERTISSEUR ── -->
+  <div style="background:var(--bg2);border-radius:20px;box-shadow:var(--shadow);overflow:hidden;">
+    <div style="background:linear-gradient(135deg,var(--f4m),var(--f4l));border-bottom:3px solid var(--f4m);padding:16px 22px;">
+      <h2 style="font-family:'Playfair Display',serif;font-size:1.4rem;font-style:italic;color:var(--ink);">🔄 Convertisseur d'unités</h2>
+    </div>
+    <div style="padding:16px 20px;">
+      <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
+        <button onclick="setConv('longueur')" class="conv-tab active" id="ctab-longueur">📏 Longueur</button>
+        <button onclick="setConv('masse')" class="conv-tab" id="ctab-masse">⚖️ Masse</button>
+        <button onclick="setConv('surface')" class="conv-tab" id="ctab-surface">🔲 Surface</button>
+        <button onclick="setConv('volume')" class="conv-tab" id="ctab-volume">🧊 Volume</button>
+        <button onclick="setConv('vitesse')" class="conv-tab" id="ctab-vitesse">🚗 Vitesse</button>
+        <button onclick="setConv('temps')" class="conv-tab" id="ctab-temps">⏱️ Temps</button>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+        <input id="conv-input" type="number" value="1" oninput="doConvert()" style="flex:1;min-width:80px;padding:10px;border-radius:10px;border:2px solid var(--f4m);background:var(--bg);color:var(--ink);font-size:1rem;font-family:'Nunito',sans-serif;">
+        <select id="conv-from" onchange="doConvert()" style="flex:1;min-width:100px;padding:10px;border-radius:10px;border:2px solid var(--f4m);background:var(--bg);color:var(--ink);font-family:'Nunito',sans-serif;"></select>
+        <span style="font-family:'Caveat',cursive;font-size:1.2rem;color:var(--f4);">→</span>
+        <select id="conv-to" onchange="doConvert()" style="flex:1;min-width:100px;padding:10px;border-radius:10px;border:2px solid var(--f4m);background:var(--bg);color:var(--ink);font-family:'Nunito',sans-serif;"></select>
+      </div>
+      <div id="conv-result" style="margin-top:14px;padding:14px;background:var(--f4l);border:2px solid var(--f4m);border-radius:12px;font-family:'Caveat',cursive;font-size:1.3rem;color:var(--f4);text-align:center;">—</div>
+    </div>
+  </div>
+
+  <!-- ── TABLEAU TRIGONOMÉTRIE ── -->
+  <div style="background:var(--bg2);border-radius:20px;box-shadow:var(--shadow);overflow:hidden;">
+    <div style="background:linear-gradient(135deg,var(--f6m),var(--f6l));border-bottom:3px solid var(--f6m);padding:16px 22px;">
+      <h2 style="font-family:'Playfair Display',serif;font-size:1.4rem;font-style:italic;color:var(--ink);">📐 Valeurs Trigonométriques</h2>
+    </div>
+    <div style="padding:16px 20px;">
+      <table>
+        <tr><th>Angle</th><th>sin</th><th>cos</th><th>tan</th></tr>
+        <tr><td>0°</td><td>0</td><td>1</td><td>0</td></tr>
+        <tr><td>30°</td><td>1/2</td><td>√3/2 ≈ 0,866</td><td>1/√3 ≈ 0,577</td></tr>
+        <tr><td>45°</td><td>√2/2 ≈ 0,707</td><td>√2/2 ≈ 0,707</td><td>1</td></tr>
+        <tr><td>60°</td><td>√3/2 ≈ 0,866</td><td>1/2</td><td>√3 ≈ 1,732</td></tr>
+        <tr><td>90°</td><td>1</td><td>0</td><td>∞</td></tr>
+      </table>
+      <div style="margin-top:12px;padding:10px 14px;background:var(--f6l);border-radius:10px;font-family:'Caveat',cursive;font-size:1rem;color:var(--f6);">
+        🔑 SOH-CAH-TOA : Sin=Opp/Hyp · Cos=Adj/Hyp · Tan=Opp/Adj
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TABLEAU PÉRIODIQUE simplifié ── -->
+  <div style="grid-column:1/-1;background:var(--bg2);border-radius:20px;box-shadow:var(--shadow);overflow:hidden;">
+    <div style="background:linear-gradient(135deg,var(--f2m),var(--f2l));border-bottom:3px solid var(--f2m);padding:16px 22px;">
+      <h2 style="font-family:'Playfair Display',serif;font-size:1.4rem;font-style:italic;color:var(--ink);">🔬 Éléments chimiques essentiels</h2>
+    </div>
+    <div style="padding:16px 20px;overflow-x:auto;">
+      <table>
+        <tr><th>Symbole</th><th>Nom</th><th>Z</th><th>Masse (A)</th><th>Famille</th></tr>
+        <tr><td><strong>H</strong></td><td>Hydrogène</td><td>1</td><td>1</td><td>Non-métal</td></tr>
+        <tr><td><strong>He</strong></td><td>Hélium</td><td>2</td><td>4</td><td>Gaz noble</td></tr>
+        <tr><td><strong>C</strong></td><td>Carbone</td><td>6</td><td>12</td><td>Non-métal</td></tr>
+        <tr><td><strong>N</strong></td><td>Azote</td><td>7</td><td>14</td><td>Non-métal</td></tr>
+        <tr><td><strong>O</strong></td><td>Oxygène</td><td>8</td><td>16</td><td>Non-métal</td></tr>
+        <tr><td><strong>Na</strong></td><td>Sodium</td><td>11</td><td>23</td><td>Métal alcalin</td></tr>
+        <tr><td><strong>Mg</strong></td><td>Magnésium</td><td>12</td><td>24</td><td>Métal</td></tr>
+        <tr><td><strong>Al</strong></td><td>Aluminium</td><td>13</td><td>27</td><td>Métal</td></tr>
+        <tr><td><strong>Si</strong></td><td>Silicium</td><td>14</td><td>28</td><td>Métalloïde</td></tr>
+        <tr><td><strong>Cl</strong></td><td>Chlore</td><td>17</td><td>35</td><td>Halogène</td></tr>
+        <tr><td><strong>Fe</strong></td><td>Fer</td><td>26</td><td>56</td><td>Métal de transition</td></tr>
+        <tr><td><strong>Cu</strong></td><td>Cuivre</td><td>29</td><td>64</td><td>Métal de transition</td></tr>
+        <tr><td><strong>Ag</strong></td><td>Argent</td><td>47</td><td>108</td><td>Métal de transition</td></tr>
+        <tr><td><strong>Au</strong></td><td>Or</td><td>79</td><td>197</td><td>Métal de transition</td></tr>
+        <tr><td><strong>Pb</strong></td><td>Plomb</td><td>82</td><td>207</td><td>Métal pauvre</td></tr>
+        <tr><td><strong>U</strong></td><td>Uranium</td><td>92</td><td>238</td><td>Actinide</td></tr>
+      </table>
+    </div>
+  </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ FLASHCARDS ══════════════════════════════════════ -->
+<div id="view-flashcards" class="view">
+  <button class="back-btn" onclick="goHome()">← Accueil</button>
+  <div class="site-header">
+    <h1>Flash <span style="color:var(--f7)">Cards</span></h1>
+    <p>Clique sur la carte pour voir la réponse · 50 questions par matière</p>
+  </div>
+
+  <!-- Sélecteur matière -->
+  <div style="max-width:860px;margin:0 auto;padding:0 20px 20px;">
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px;justify-content:center;">
+      <button onclick="loadFlash('fr')" class="flash-cat-btn active" id="fcat-fr">📚 Français</button>
+      <button onclick="loadFlash('ma')" class="flash-cat-btn" id="fcat-ma">📐 Maths</button>
+      <button onclick="loadFlash('hg')" class="flash-cat-btn" id="fcat-hg">🌍 Histoire-Géo</button>
+      <button onclick="loadFlash('sc')" class="flash-cat-btn" id="fcat-sc">🔬 Sciences</button>
+      <button onclick="loadFlash('te')" class="flash-cat-btn" id="fcat-te">⚙️ Techno</button>
+    </div>
+
+    <!-- Compteur + barre progression -->
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
+      <div id="fc-counter" style="font-family:'Caveat',cursive;font-size:1.1rem;color:var(--ink-light);">Carte 1 / 50</div>
+      <div style="flex:1;height:6px;background:var(--progress-track);border-radius:3px;">
+        <div id="fc-prog" style="height:6px;background:var(--f7);border-radius:3px;transition:width .4s;width:2%;"></div>
+      </div>
+      <div id="fc-score" style="font-family:'Caveat',cursive;font-size:1rem;color:var(--f5);">✓ 0</div>
+    </div>
+
+    <!-- La carte -->
+    <div id="flashcard" onclick="flipCard()" style="
+      perspective:1000px;cursor:pointer;height:260px;margin-bottom:20px;user-select:none;
+    ">
+      <div id="fc-inner" style="
+        position:relative;width:100%;height:100%;
+        transition:transform .55s cubic-bezier(.4,0,.2,1);
+        transform-style:preserve-3d;
+      ">
+        <!-- Face avant (question) -->
+        <div id="fc-front" style="
+          position:absolute;inset:0;backface-visibility:hidden;
+          background:var(--bg2);border-radius:24px;box-shadow:var(--shadow);
+          display:flex;flex-direction:column;align-items:center;justify-content:center;
+          padding:28px 32px;border:3px solid var(--f7m);
+        ">
+          <div style="font-family:'Caveat',cursive;font-size:.85rem;font-weight:700;color:var(--f7);letter-spacing:3px;text-transform:uppercase;margin-bottom:14px;">❓ QUESTION</div>
+          <div id="fc-question" style="font-family:'Playfair Display',serif;font-size:1.4rem;font-style:italic;color:var(--ink);text-align:center;line-height:1.5;"></div>
+          <div style="margin-top:20px;font-family:'Caveat',cursive;font-size:.9rem;color:var(--ink-light);">👆 Clique pour voir la réponse</div>
+        </div>
+        <!-- Face arrière (réponse) -->
+        <div id="fc-back" style="
+          position:absolute;inset:0;backface-visibility:hidden;
+          transform:rotateY(180deg);
+          background:var(--bg2);border-radius:24px;box-shadow:var(--shadow);
+          display:flex;flex-direction:column;align-items:center;justify-content:center;
+          padding:28px 32px;border:3px solid var(--f5m);
+        ">
+          <div style="font-family:'Caveat',cursive;font-size:.85rem;font-weight:700;color:var(--f5);letter-spacing:3px;text-transform:uppercase;margin-bottom:14px;">✅ RÉPONSE</div>
+          <div id="fc-answer" style="font-family:'Nunito',sans-serif;font-size:1.05rem;color:var(--ink);text-align:center;line-height:1.6;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Boutons navigation -->
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <button onclick="prevCard()" style="padding:10px 24px;border-radius:50px;border:2px solid var(--f7m);background:var(--bg2);color:var(--f7);font-family:'Caveat',cursive;font-size:1rem;font-weight:700;cursor:pointer;transition:all .25s;">← Précédente</button>
+      <button onclick="markCorrect()" style="padding:10px 24px;border-radius:50px;border:none;background:var(--f5);color:white;font-family:'Caveat',cursive;font-size:1rem;font-weight:700;cursor:pointer;transition:all .25s;">✓ Je savais</button>
+      <button onclick="markWrong()" style="padding:10px 24px;border-radius:50px;border:none;background:var(--f7);color:white;font-family:'Caveat',cursive;font-size:1rem;font-weight:700;cursor:pointer;transition:all .25s;">✗ À revoir</button>
+      <button onclick="nextCard()" style="padding:10px 24px;border-radius:50px;border:2px solid var(--f7m);background:var(--bg2);color:var(--f7);font-family:'Caveat',cursive;font-size:1rem;font-weight:700;cursor:pointer;transition:all .25s;">Suivante →</button>
+      <button onclick="shuffleCards()" style="padding:10px 24px;border-radius:50px;border:2px solid var(--f8m);background:var(--bg2);color:var(--f8);font-family:'Caveat',cursive;font-size:1rem;font-weight:700;cursor:pointer;transition:all .25s;">🔀 Mélanger</button>
+    </div>
+
+    <!-- Résumé révision -->
+    <div id="fc-review" style="display:none;margin-top:20px;padding:16px 20px;background:var(--f7l);border:2px solid var(--f7m);border-radius:16px;">
+      <div style="font-family:'Caveat',cursive;font-size:1.1rem;font-weight:700;color:var(--f7);margin-bottom:10px;">📋 À revoir :</div>
+      <div id="fc-review-list" style="font-size:.85rem;color:var(--sec-text);line-height:1.8;"></div>
+    </div>
+  </div>
+</div>
+
 <!-- ══════════════════════════════════════ SCRIPTS ══════════════════════════════════════ -->
 <script>
 // ─── Theme ───
@@ -3786,6 +4112,426 @@ function showMa(n){ showTab('ma','nav-ma','fiches-ma',n); }
 function showHg(n){ showTab('hg','nav-hg','fiches-hg',n); }
 function showSc(n){ showTab('sc','nav-sc','fiches-sc',n); }
 function showTe(n){ showTab('te','nav-te','fiches-te',n); }
+
+// ═══════════════════════════════════════
+// CALCULATRICE
+// ═══════════════════════════════════════
+let calcExpr = '';
+function calcFn(v){
+  if(calcExpr === '0') calcExpr = '';
+  calcExpr += v;
+  document.getElementById('calc-screen').textContent = calcExpr || '0';
+}
+function calcClear(){ calcExpr=''; document.getElementById('calc-screen').textContent='0'; }
+function calcDel(){
+  calcExpr = calcExpr.slice(0,-1);
+  document.getElementById('calc-screen').textContent = calcExpr || '0';
+}
+function calcEquals(){
+  try{
+    let expr = calcExpr;
+    // Replace trig: sin(...) → Math.sin(rad)
+    expr = expr.replace(/sin\(([^)]*)\)/g, (_,x)=>`Math.sin(${x}*Math.PI/180)`);
+    expr = expr.replace(/cos\(([^)]*)\)/g, (_,x)=>`Math.cos(${x}*Math.PI/180)`);
+    expr = expr.replace(/tan\(([^)]*)\)/g, (_,x)=>`Math.tan(${x}*Math.PI/180)`);
+    let result = Function('"use strict";return ('+expr+')')();
+    result = Math.round(result * 1e10) / 1e10;
+    document.getElementById('calc-screen').textContent = result;
+    calcExpr = String(result);
+  } catch(e){
+    document.getElementById('calc-screen').textContent = 'Erreur ✗';
+    calcExpr = '';
+  }
+}
+
+// ═══════════════════════════════════════
+// CONVERTISSEUR
+// ═══════════════════════════════════════
+const convData = {
+  longueur:{units:['mm','cm','dm','m','km'],toBase:[0.001,0.01,0.1,1,1000]},
+  masse:{units:['mg','g','kg','t'],toBase:[0.000001,0.001,1,1000]},
+  surface:{units:['mm²','cm²','dm²','m²','are','hectare','km²'],toBase:[0.000001,0.0001,0.01,1,100,10000,1000000]},
+  volume:{units:['mL','cL','dL','L','m³'],toBase:[0.001,0.01,0.1,1,1000]},
+  vitesse:{units:['m/s','km/h','km/min'],toBase:[1,1/3.6,1000/60]},
+  temps:{units:['seconde','minute','heure','jour','semaine'],toBase:[1,60,3600,86400,604800]}
+};
+let convCurrent = 'longueur';
+function setConv(type){
+  convCurrent = type;
+  document.querySelectorAll('.conv-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('ctab-'+type).classList.add('active');
+  const d = convData[type];
+  ['conv-from','conv-to'].forEach((id,i)=>{
+    const sel = document.getElementById(id);
+    sel.innerHTML = d.units.map((u,j)=>`<option value="${j}">${u}</option>`).join('');
+    sel.value = i===0?'0':'1';
+  });
+  doConvert();
+}
+function doConvert(){
+  const d = convData[convCurrent];
+  const val = parseFloat(document.getElementById('conv-input').value)||0;
+  const from = parseInt(document.getElementById('conv-from').value);
+  const to = parseInt(document.getElementById('conv-to').value);
+  const base = val * d.toBase[from];
+  const result = base / d.toBase[to];
+  const rounded = Math.round(result * 1e10) / 1e10;
+  document.getElementById('conv-result').textContent =
+    val + ' ' + d.units[from] + ' = ' + rounded + ' ' + d.units[to];
+}
+// Init convertisseur
+setConv('longueur');
+
+// ═══════════════════════════════════════
+// FLASHCARDS — 50 questions par matière
+// ═══════════════════════════════════════
+const flashData = {
+  fr:[
+    {q:'Quelle est la fonction grammaticale du sujet ?',a:'Le sujet fait (ou subit) l\'action. Il répond à "Qui est-ce qui ?" et n\'est pas supprimable.'},
+    {q:'Comment identifier un COD ?',a:'Le COD répond à "Quoi ?" ou "Qui ?" après le verbe, sans préposition. Il est remplaçable par le/la/les.'},
+    {q:'Quelle est la différence entre COI et COD ?',a:'Le COI est introduit par une préposition (à, de…) et répond à "à qui ?", "de quoi ?". Le COD n\'a pas de préposition.'},
+    {q:'Qu\'est-ce qu\'un complément circonstanciel ?',a:'C\'est un complément qui précise les circonstances de l\'action (temps, lieu, manière…). Il est supprimable et déplaçable.'},
+    {q:'Définir l\'épithète.',a:'L\'épithète est un adjectif directement lié au nom, sans verbe. Ex : "La belle maison." (belle = épithète de maison)'},
+    {q:'Qu\'est-ce qu\'un attribut du sujet ?',a:'C\'est un adjectif ou nom relié au sujet par un verbe d\'état (être, paraître, sembler, devenir, rester, demeurer). Ex : "Il est médecin."'},
+    {q:'Citer les 7 verbes d\'état.',a:'être · paraître · sembler · devenir · rester · demeurer · avoir l\'air'},
+    {q:'Quels mots sont invariables ?',a:'Les adverbes, prépositions, conjonctions (de coordination et de subordination) et interjections ne s\'accordent jamais.'},
+    {q:'Quelle est la différence entre nom propre et nom commun ?',a:'Le nom propre désigne un être unique et prend une majuscule (Paris, Marie). Le nom commun désigne une catégorie (un chat, la maison).'},
+    {q:'Règle du pluriel des noms en -al.',a:'Les noms en -al font -aux au pluriel. Ex : cheval → chevaux. Exceptions : bal, carnaval, festival → bals, carnavals, festivals.'},
+    {q:'Les 7 noms en -ou qui prennent -x au pluriel ?',a:'Bijou, caillou, chou, genou, hibou, joujou, pou → bijoux, cailloux, choux, genoux, hiboux, joujoux, poux.'},
+    {q:'Quels sont les 4 types de phrase ?',a:'Déclarative (.), interrogative (?), impérative (. ou !), exclamative (!).'},
+    {q:'Qu\'est-ce que la forme passive ?',a:'Le sujet subit l\'action. Construction : être + participe passé. Ex : "La souris est mangée par le chat."'},
+    {q:'Qu\'est-ce qu\'une phrase impersonnelle ?',a:'Le sujet "il" ne désigne personne. Ex : Il pleut. Il faut. Il neige. Il y a.'},
+    {q:'Quelle est la différence entre passé simple et passé composé ?',a:'Le passé simple = action ponctuelle terminée à l\'écrit littéraire. Le passé composé = action terminée liée au présent, utilisé à l\'oral.'},
+    {q:'Quand utilise-t-on l\'imparfait ?',a:'Pour une action répétée ou habituelle dans le passé, une description ou le cadre d\'une autre action (passé simple).'},
+    {q:'Terminaisons du futur simple pour les verbes du 1er groupe ?',a:'-rai, -ras, -ra, -rons, -rez, -ront. Ex : je mangerai, tu mangeras, il mangera…'},
+    {q:'Quels verbes se conjuguent avec ÊTRE au passé composé ?',a:'Aller, venir, arriver, partir, entrer, sortir, naître, mourir, monter, descendre, tomber, rester, retourner, passer + tous les verbes pronominaux.'},
+    {q:'Qu\'est-ce qu\'une proposition subordonnée relative ?',a:'Elle est introduite par un pronom relatif (qui, que, dont, où, lequel…) et qualifie un antécédent.'},
+    {q:'Différence entre relative déterminative et explicative ?',a:'Déterminative : essentielle au sens, pas de virgules. Ex : "L\'homme qui ment…". Explicative : entre virgules, info supplémentaire. Ex : "Mon frère, qui est médecin,…"'},
+    {q:'Qu\'est-ce qu\'une proposition subordonnée complétive ?',a:'Introduite par "que", elle a la fonction de COD ou sujet. Ex : "Je crois qu\'il viendra." → que + il viendra = COD.'},
+    {q:'Conjonctions de subordination de cause ?',a:'Parce que, puisque, comme, étant donné que, vu que, sous prétexte que…'},
+    {q:'Qu\'est-ce qu\'une interrogative indirecte ?',a:'Une question intégrée dans une phrase, sans point d\'interrogation. Ex : "Il demande si tu viens." (si tu viens = COD de demande)'},
+    {q:'Différence entre adjectif épithète et adjectif attribut ?',a:'Épithète : collé au nom, pas de verbe entre eux. Ex : "une grande maison". Attribut : relié par un verbe d\'état. Ex : "La maison est grande."'},
+    {q:'Qu\'est-ce que le conditionnel passé ?',a:'Il exprime une action hypothétique non réalisée. Ex : "Si j\'avais su, je serais venu." = auxiliaire au conditionnel présent + participe passé.'},
+    {q:'Quand emploie-t-on le subjonctif ?',a:'Après verbes de volonté, émotion, doute, obligation. Souvent après "que" : Il faut que tu viennes. Bien qu\'elle soit fatiguée…'},
+    {q:'Qu\'est-ce qu\'une proposition indépendante ?',a:'Elle se suffit à elle-même : ni subordonnée à une autre, ni principale d\'une subordonnée. Ex : "Il fait beau."'},
+    {q:'Définir la proposition principale.',a:'Elle ne dépend d\'aucune autre, mais une subordonnée dépend d\'elle. Ex : "Je pense [que tu as raison]." → "Je pense" est la principale.'},
+    {q:'Moyen mnémotechnique pour les classes grammaticales variables ?',a:'NADAPV : Nom · Adjectif · Déterminant · Adverbe (non!) → retenir : Nom, Déterminant, Adjectif, Pronom, Verbe = les 5 variables.'},
+    {q:'Qu\'est-ce que le plus-que-parfait ?',a:'Il exprime une action antérieure à une autre action passée. Formé avec l\'auxiliaire à l\'imparfait + PP. Ex : "Quand il arriva, elle était déjà partie."'},
+    {q:'Les types de déterminants ?',a:'Défini (le/la/les), indéfini (un/une/des), partitif (du/de la), possessif (mon/ton…), démonstratif (ce/cette…), numéral, interrogatif (quel…).'},
+    {q:'Qu\'est-ce qu\'un pronom relatif ?',a:'Il introduit une subordonnée relative et remplace un antécédent : qui (sujet), que (COD), dont (CDN/COI), où (lieu/temps), lequel (avec prép.).'},
+    {q:'Différence entre forme active et passive ?',a:'Active : le sujet fait l\'action ("Le chat mange la souris"). Passive : le sujet subit l\'action ("La souris est mangée par le chat").'},
+    {q:'Terminaisons de l\'imparfait ?',a:'-ais, -ais, -ait, -ions, -iez, -aient (pour tous les groupes sauf être : j\'étais, tu étais, il était…)'},
+    {q:'Qu\'est-ce que le passé antérieur ?',a:'Temps composé de l\'indicatif = auxiliaire au passé simple + PP. Exprime une action antérieure à une autre au passé simple. Ex : "Quand il eut mangé, il partir."'},
+    {q:'Pronoms personnels sujets ?',a:'Je, tu, il/elle/on, nous, vous, ils/elles. En position de COD : me, te, le/la/nous, vous, les. En COI : me, te, lui, nous, vous, leur.'},
+    {q:'Qu\'est-ce qu\'un complément du nom ?',a:'Il précise un nom, introduit par une préposition (de, à, en…). Ex : "La maison de mes parents." → "de mes parents" = CDN de "maison".'},
+    {q:'Qu\'est-ce qu\'une apposition ?',a:'Nom ou groupe mis en apposition pour caractériser un autre nom, généralement séparé par une virgule. Ex : "Paris, capitale de la France, est magnifique."'},
+    {q:'Les conjonctions de coordination (moyen mnémo) ?',a:'Mais, ou, et, donc, or, ni, car → MOEDONC ou "mais où est donc Ornicar ?"'},
+    {q:'Différence entre nom concret et nom abstrait ?',a:'Concret : perçu par les sens (une table, le bruit). Abstrait : désigne une idée, un sentiment, une qualité (la liberté, le courage, la beauté).'},
+    {q:'Qu\'est-ce qu\'une subordonnée de concession ?',a:'Elle exprime une opposition malgré laquelle l\'action principale a lieu. Introduite par : bien que, quoique, même si, alors que… Souvent au subjonctif.'},
+    {q:'Différence entre déterminant possessif et pronom possessif ?',a:'Possessif déterminant : accompagne un nom (mon livre). Pronom possessif : remplace un GN (le mien, la tienne, les leurs…)'},
+    {q:'Qu\'est-ce que le futur antérieur ?',a:'Indique une action qui sera terminée avant une autre action future. Ex : "Quand tu auras fini, tu pourras partir." = auxiliaire au futur + PP.'},
+    {q:'Comment reconnaître un adverbe ?',a:'Un adverbe est invariable et modifie un verbe, un adjectif ou un autre adverbe. Ex : très, vite, bien, souvent, hier, jamais, peu, beaucoup…'},
+    {q:'Qu\'est-ce que la forme négative restrictive ?',a:'"Ne…que" = restriction, n\'est pas vraiment une négation. Ex : "Je ne mange que des pommes" = je mange seulement des pommes.'},
+    {q:'Terminaisons du passé simple 1er groupe ?',a:'-ai, -as, -a, -âmes, -âtes, -èrent. Ex : je mangea, tu mangeas, il mangea, nous mangeâmes, vous mangeâtes, ils mangèrent.'},
+    {q:'Qu\'est-ce qu\'un complément circonstanciel de but ?',a:'Il répond à "Pour quoi faire ?". Introduit par : pour, afin de, en vue de (+ infinitif) ou pour que, afin que (+ subjonctif).'},
+    {q:'Différence entre préposition et conjonction ?',a:'La préposition introduit un GN (à, de, pour, avec, dans…). La conjonction de subordination introduit une proposition (que, si, quand, parce que…).'},
+    {q:'Qu\'est-ce que le participe présent ?',a:'Forme verbale en -ant, invariable. Ex : "En mangeant, il regardait la télé." Ne pas confondre avec l\'adjectif verbal qui lui s\'accorde.'},
+    {q:'Qu\'est-ce qu\'un groupe nominal (GN) ?',a:'Ensemble organisé autour d\'un nom (noyau). Structure minimale : déterminant + nom. Ex : "la belle vieille maison rouge" = GN.'}
+  ],
+  ma:[
+    {q:'Énoncer le théorème de Pythagore.',a:'Dans un triangle rectangle en A : BC² = AB² + AC².\nL\'hypoténuse est le côté opposé à l\'angle droit (ici BC).'},
+    {q:'Énoncer la réciproque de Pythagore.',a:'Si dans un triangle BC² = AB² + AC², alors le triangle est rectangle en A.'},
+    {q:'Énoncer le théorème de Thalès.',a:'Si (DE) ∥ (BC) dans le triangle ABC, alors : AD/AB = AE/AC = DE/BC'},
+    {q:'Formule du discriminant.',a:'Δ = b² − 4ac\nPour ax² + bx + c = 0.\nSi Δ > 0 : 2 solutions. Δ = 0 : 1 solution. Δ < 0 : aucune.'},
+    {q:'Solutions d\'une équation du 2nd degré quand Δ > 0.',a:'x₁ = (−b − √Δ) / 2a\nx₂ = (−b + √Δ) / 2a'},
+    {q:'Les 3 identités remarquables.',a:'(a+b)² = a²+2ab+b²\n(a−b)² = a²−2ab+b²\n(a+b)(a−b) = a²−b²'},
+    {q:'Formule de la moyenne pondérée.',a:'Moyenne = Σ(xᵢ × nᵢ) / N\noù N = effectif total, xᵢ = valeur, nᵢ = effectif de la valeur.'},
+    {q:'Qu\'est-ce que la médiane ?',a:'La médiane est la valeur qui partage la série en deux parties de même effectif. 50% des valeurs sont en-dessous, 50% au-dessus.'},
+    {q:'Formule de la probabilité de l\'événement contraire.',a:'P(Ā) = 1 − P(A)\nLa somme des probabilités de tous les événements élémentaires = 1.'},
+    {q:'Qu\'est-ce qu\'une fonction affine ?',a:'f(x) = ax + b\na = coefficient directeur (pente)\nb = ordonnée à l\'origine\nSi a > 0 : croissante. Si a < 0 : décroissante.'},
+    {q:'Comment calculer le coefficient directeur d\'une droite ?',a:'a = (y₂ − y₁) / (x₂ − x₁)\nentre deux points (x₁;y₁) et (x₂;y₂) de la droite.'},
+    {q:'Formule du milieu d\'un segment.',a:'M( (x₁+x₂)/2 ; (y₁+y₂)/2 )\nLe milieu est la moyenne des coordonnées.'},
+    {q:'Formule de la distance entre deux points.',a:'d(A,B) = √((x₂−x₁)² + (y₂−y₁)²)'},
+    {q:'Formule de l\'aire d\'un triangle.',a:'A = base × hauteur / 2\nLa hauteur est perpendiculaire à la base.'},
+    {q:'Formule de l\'aire d\'un disque et périmètre d\'un cercle.',a:'Aire = π × r²\nPérimètre = 2 × π × r = π × d\n(r = rayon, d = diamètre)'},
+    {q:'Volume d\'un cylindre.',a:'V = π × r² × h\n(r = rayon de la base, h = hauteur)'},
+    {q:'Volume d\'une sphère.',a:'V = (4/3) × π × r³\nAire de la sphère = 4πr²'},
+    {q:'Volume d\'un cône.',a:'V = (1/3) × π × r² × h\n(r = rayon de la base, h = hauteur)'},
+    {q:'Volume d\'une pyramide.',a:'V = (1/3) × Aire de la base × hauteur'},
+    {q:'SOH-CAH-TOA : donner les 3 formules.',a:'sin α = Opposé / Hypoténuse\ncos α = Adjacent / Hypoténuse\ntan α = Opposé / Adjacent'},
+    {q:'Valeurs de sin, cos et tan pour 30°.',a:'sin 30° = 1/2\ncos 30° = √3/2 ≈ 0,866\ntan 30° = √3/3 ≈ 0,577'},
+    {q:'Valeurs de sin, cos et tan pour 45°.',a:'sin 45° = √2/2 ≈ 0,707\ncos 45° = √2/2 ≈ 0,707\ntan 45° = 1'},
+    {q:'Valeurs de sin, cos et tan pour 60°.',a:'sin 60° = √3/2 ≈ 0,866\ncos 60° = 1/2\ntan 60° = √3 ≈ 1,732'},
+    {q:'Relation fondamentale de trigonométrie.',a:'sin²α + cos²α = 1\n(valable pour tout angle α)'},
+    {q:'Qu\'est-ce que la notation scientifique ?',a:'Écrire un nombre sous la forme a × 10ⁿ avec 1 ≤ a < 10.\nEx : 3 400 000 = 3,4 × 10⁶ · 0,000056 = 5,6 × 10⁻⁵'},
+    {q:'Règle des puissances : aⁿ × aᵐ = ?',a:'aⁿ × aᵐ = aⁿ⁺ᵐ\nEx : 2³ × 2⁴ = 2⁷ = 128'},
+    {q:'Règle des puissances : (aⁿ)ᵐ = ?',a:'(aⁿ)ᵐ = aⁿˣᵐ\nEx : (3²)⁴ = 3⁸ = 6561'},
+    {q:'Qu\'est-ce que a⁻ⁿ ?',a:'a⁻ⁿ = 1/aⁿ\nEx : 2⁻³ = 1/8 = 0,125'},
+    {q:'Comment simplifier √(a×b) ?',a:'√(a×b) = √a × √b (si a ≥ 0 et b ≥ 0)\nEx : √12 = √(4×3) = 2√3'},
+    {q:'Augmenter un nombre de t% : quelle opération ?',a:'Multiplier par (1 + t/100)\nEx : 200 augmenté de 15% → 200 × 1,15 = 230'},
+    {q:'Formule du taux de variation.',a:'t = (valeur finale − valeur initiale) / valeur initiale × 100\nRésultat en %.'},
+    {q:'Priorités opératoires dans un calcul.',a:'1. Parenthèses\n2. Puissances et racines\n3. Multiplication et division (de gauche à droite)\n4. Addition et soustraction'},
+    {q:'Qu\'est-ce qu\'un vecteur ?',a:'Le vecteur AB⃗ a des coordonnées (x_B − x_A ; y_B − y_A).\nIl a une direction, un sens et une norme (longueur).'},
+    {q:'Condition de colinéarité de deux vecteurs.',a:'AB⃗(a;b) et CD⃗(c;d) sont colinéaires si et seulement si ad − bc = 0.'},
+    {q:'Qu\'est-ce qu\'une symétrie centrale ?',a:'C est le centre de symétrie. L\'image de A par la symétrie de centre C est le point A\' tel que C est le milieu de [AA\'].'},
+    {q:'Propriétés d\'une homothétie de rapport k.',a:'Les longueurs sont multipliées par |k|.\nLes aires sont multipliées par k².\nLes volumes par k³.'},
+    {q:'Somme des angles dans un triangle.',a:'La somme des 3 angles d\'un triangle est toujours 180°.'},
+    {q:'Propriétés du parallélogramme.',a:'Les côtés opposés sont parallèles et égaux. Les diagonales se coupent en leur milieu. Les angles opposés sont égaux.'},
+    {q:'Différence entre un histogramme et un diagramme en bâtons.',a:'Bâtons : pour données discrètes (entières). Histogramme : pour données continues (classes). La largeur des barres représente l\'intervalle de classe.'},
+    {q:'Résolution d\'un système par addition.',a:'{ x+y=5 et x−y=1 → Additionner : 2x=6 → x=3 → y=2.\nOn choisit l\'opération qui élimine une inconnue.'},
+    {q:'Résolution d\'une inéquation : règle du signe.',a:'Si on multiplie ou divise les deux membres par un nombre négatif, le signe d\'inégalité change !\nEx : −2x > 4 → x < −2'},
+    {q:'Qu\'est-ce que la forme factorisée d\'un trinôme ?',a:'ax² + bx + c = a(x−x₁)(x−x₂) si Δ > 0\nEx : x²−5x+6 = (x−2)(x−3)'},
+    {q:'Propriétés du losange.',a:'4 côtés égaux. Les diagonales sont perpendiculaires et se coupent en leur milieu. Les angles opposés sont égaux.'},
+    {q:'Qu\'est-ce qu\'un événement incompatible ?',a:'A et B sont incompatibles si P(A∩B) = 0 (ils ne peuvent pas se réaliser en même temps).\nAlors P(A∪B) = P(A) + P(B).'},
+    {q:'Propriétés des angles alternes-internes.',a:'Si deux droites sont parallèles coupées par une sécante, les angles alternes-internes sont égaux.\nRéciproque : si alternes-internes égaux → droites parallèles.'},
+    {q:'Qu\'est-ce que l\'étendue d\'une série statistique ?',a:'L\'étendue = valeur maximale − valeur minimale.\nElle mesure la dispersion de la série.'},
+    {q:'Factoriser 4x² − 9.',a:'4x² − 9 = (2x)² − 3² = (2x+3)(2x−3)\n→ identité remarquable a²−b² = (a+b)(a−b)'},
+    {q:'Propriétés d\'un triangle isocèle.',a:'2 côtés égaux (les côtés "égaux" s\'appellent les "côtés principaux"). Les 2 angles à la base sont égaux. La médiatrice = axe de symétrie.'},
+    {q:'Formule de l\'aire d\'un trapèze.',a:'A = (grande base B + petite base b) × hauteur / 2\nLes deux bases sont les côtés parallèles.'},
+    {q:'Qu\'est-ce que la fonction valeur absolue ?',a:'|x| = x si x ≥ 0, et |x| = −x si x < 0.\n|x| représente la distance de x à 0 sur la droite des réels.'}
+  ],
+  hg:[
+    {q:'Dates de la Première Guerre Mondiale.',a:'1914-1918 (4 ans)\nArmistice le 11 novembre 1918.\nTraité de Versailles : 1919.'},
+    {q:'Qu\'est-ce que la guerre de tranchées ?',a:'Système défensif de la 1ère GM : les soldats ("Poilus") vivaient dans des tranchées creusées dans le sol. Front fixe, violence extrême, gaz de combat.'},
+    {q:'Définir la Shoah.',a:'Génocide systématique des Juifs d\'Europe par les nazis. Environ 6 millions de victimes. Camps d\'extermination : Auschwitz, Treblinka, Sobibor…'},
+    {q:'Date de l\'Appel du 18 juin et son auteur.',a:'18 juin 1940 — Général de Gaulle depuis Londres.\nIl refuse l\'armistice et appelle à la Résistance.'},
+    {q:'Qu\'est-ce que la Guerre Froide ?',a:'Conflit indirect entre les USA (capitalisme) et l\'URSS (communisme) de 1947 à 1991, sans affrontement militaire direct.'},
+    {q:'Date de la chute du Mur de Berlin.',a:'9 novembre 1989.\nC\'est le symbole de la fin de la Guerre Froide et de la réunification de l\'Allemagne.'},
+    {q:'Dates de la guerre d\'Algérie et comment s\'est-elle terminée ?',a:'1954-1962. Elle s\'est terminée par les Accords d\'Évian (mars 1962), accordant l\'indépendance à l\'Algérie.'},
+    {q:'Qu\'est-ce que les Trente Glorieuses ?',a:'Période de forte croissance économique en France entre 1945 et 1975 (~5%/an). Naissance de la société de consommation et de l\'État-providence.'},
+    {q:'Qu\'est-ce que Mai 68 ?',a:'Révolte étudiante et grève générale (9 millions de grévistes) en mai 1968 en France. Remise en cause de la société de consommation et des valeurs traditionnelles.'},
+    {q:'Date de la Constitution de la Vème République.',a:'4 octobre 1958. Rédigée par Michel Debré sous l\'autorité de De Gaulle, qui devient président en 1959.'},
+    {q:'Comment est élu le Président de la République depuis 1962 ?',a:'Au suffrage universel direct (tous les citoyens votent). Mandat de 5 ans (quinquennat depuis 2000).'},
+    {q:'Qu\'est-ce que la décolonisation ?',a:'Processus d\'indépendance des colonies après 1945. Causes : affaiblissement des empires, DUDH, nationalismes locaux. Indépendances africaines surtout dans les années 1960.'},
+    {q:'Date et importance du débarquement en Normandie.',a:'6 juin 1944 (D-Day). Les Alliés ouvrent un front à l\'Ouest, libèrent la France et précipitent la défaite de l\'Allemagne.'},
+    {q:'Qu\'est-ce que l\'ONU et quand a-t-elle été fondée ?',a:'Organisation des Nations Unies, fondée en 1945 pour maintenir la paix et la sécurité internationale. 193 membres, Conseil de sécurité avec 5 membres permanents.'},
+    {q:'Les 5 membres permanents du Conseil de sécurité de l\'ONU.',a:'États-Unis, Russie (ex-URSS), Chine, France, Royaume-Uni.\nChacun a un droit de veto.'},
+    {q:'Qu\'est-ce que la DUDH ?',a:'Déclaration Universelle des Droits de l\'Homme, adoptée par l\'ONU le 10 décembre 1948. 30 articles définissant les droits fondamentaux de tout être humain.'},
+    {q:'Quand et où se sont déroulés les attentats du 11 septembre 2001 ?',a:'11 septembre 2001 aux États-Unis : attaques contre les Tours Jumelles (World Trade Center) à New York et le Pentagone. 2 977 morts. Perpétrés par Al-Qaïda.'},
+    {q:'Qu\'est-ce que la mondialisation ?',a:'Mise en relation croissante des différentes parties du monde via les échanges économiques, culturels, humains et d\'informations. Accélérée depuis les années 1980.'},
+    {q:'Qu\'est-ce que la Triade ?',a:'Cœur de la mondialisation = USA + Europe occidentale + Japon. Ces 3 zones concentrent la majorité des flux économiques et financiers mondiaux.'},
+    {q:'Qu\'est-ce que les BRICS ?',a:'Brésil, Russie, Inde, Chine, Afrique du Sud. Pays émergents à forte croissance économique, qui s\'affirment sur la scène internationale.'},
+    {q:'Qu\'est-ce que le Brexit ?',a:'Sortie du Royaume-Uni de l\'Union Européenne, effective le 31 janvier 2020. L\'UE compte désormais 27 États membres.'},
+    {q:'Date du Traité de Rome et ce qu\'il a créé.',a:'25 mars 1957. Création de la CEE (Communauté Économique Européenne), ancêtre de l\'UE. Marché commun entre 6 pays fondateurs.'},
+    {q:'Quand l\'euro a-t-il été introduit ?',a:'1er janvier 2002 pour les pièces et billets.\n(L\'euro comme monnaie comptable existe depuis 1999).\n20 pays utilisent l\'euro (zone euro).'},
+    {q:'Qu\'est-ce que l\'IDH ?',a:'Indice de Développement Humain (0 à 1). Mesure 3 critères : espérance de vie, niveau d\'éducation, revenu par habitant. Créé par le PNUD/ONU.'},
+    {q:'Devise de la République française.',a:'Liberté, Égalité, Fraternité\nAdoptée lors de la Révolution française, gravée sur les frontons des mairies et écoles.'},
+    {q:'Qu\'est-ce que la laïcité en France ?',a:'Principe de séparation de l\'Église et de l\'État (loi de 1905). L\'État est neutre vis-à-vis de toutes les religions. La loi de 2004 interdit les signes religieux ostensibles à l\'école.'},
+    {q:'Qu\'est-ce que la DDHC ?',a:'Déclaration des Droits de l\'Homme et du Citoyen, adoptée le 26 août 1789 pendant la Révolution française. Texte fondateur de la démocratie française.'},
+    {q:'Qu\'est-ce que le génocide de Srebrenica ?',a:'Massacre de plus de 8 000 Musulmans bosniaques par les forces serbes en juillet 1995, pendant les guerres de Yougoslavie. Reconnu comme génocide par le TPIY.'},
+    {q:'Qu\'est-ce que la métropolisation ?',a:'Concentration de la population et des activités économiques dans les grandes villes (métropoles). En France, 80% de la population vit en ville.'},
+    {q:'Qu\'est-ce que l\'Accord de Paris ?',a:'Accord climatique adopté lors de la COP21 en décembre 2015. Objectif : limiter le réchauffement climatique à +2°C (voire +1,5°C) par rapport à l\'ère pré-industrielle.'},
+    {q:'Qu\'est-ce que le totalitarisme ?',a:'Régime politique qui impose un parti unique, le culte du chef, une police politique, la propagande et la terreur de masse. Ex : nazisme, fascisme, stalinisme.'},
+    {q:'Qu\'est-ce que la présomption d\'innocence ?',a:'Principe juridique : toute personne est considérée innocente jusqu\'à ce que sa culpabilité soit prouvée par un tribunal. Fondement du droit pénal démocratique.'},
+    {q:'Rôle du Conseil constitutionnel.',a:'Vérifie que les lois votées par le Parlement sont conformes à la Constitution. Composé de 9 membres nommés pour 9 ans.'},
+    {q:'Qu\'est-ce que la CPI ?',a:'Cour Pénale Internationale, créée en 1998 (Statut de Rome). Juge les crimes contre l\'humanité, génocides et crimes de guerre. Siège à La Haye.'},
+    {q:'Qu\'est-ce que le RGPD ?',a:'Règlement Général sur la Protection des Données, en vigueur depuis mai 2018 en Europe. Droit d\'accès, rectification et effacement des données personnelles.'},
+    {q:'Différence entre démocratie directe et représentative.',a:'Directe : les citoyens votent eux-mêmes sur les décisions (référendum). Représentative : des élus (députés, sénateurs) décident à leur place.'},
+    {q:'Qu\'est-ce que la Rafle du Vél d\'Hiv ?',a:'16-17 juillet 1942 : la police française arrête 13 152 Juifs à Paris, dont 4 115 enfants, sur ordre des nazis. Symbole de la collaboration de Vichy.'},
+    {q:'Qu\'est-ce que la conférence de Bandung (1955) ?',a:'1ère conférence afro-asiatique, regroupant 29 pays décolonisés. Naissance du mouvement des non-alignés : refus des deux blocs (USA et URSS).'},
+    {q:'Qu\'est-ce que le choc pétrolier de 1973 ?',a:'Quadruplement du prix du pétrole par les pays arabes de l\'OPEP. Fin des Trente Glorieuses, montée du chômage et de l\'inflation en Europe.'},
+    {q:'Qu\'est-ce que le Traité de Maastricht ?',a:'7 février 1992 : crée l\'Union Européenne, instaure la citoyenneté européenne, prépare l\'euro. Piliers : Union économique, PESC, Justice et Affaires intérieures.'},
+    {q:'Qu\'est-ce que la Vème République et ses institutions principales ?',a:'Régime politique instauré par De Gaulle en 1958. Président fort (élu directement depuis 1962) + Premier ministre + Assemblée nationale (577 députés) + Sénat (348 sénateurs).'},
+    {q:'Qu\'est-ce que le STO pendant la 2ème GM ?',a:'Service du Travail Obligatoire : institué en février 1943 par Vichy, il envoyait des travailleurs français en Allemagne. Beaucoup rejoignirent le maquis pour y échapper.'},
+    {q:'Qu\'est-ce que la fracture numérique ?',a:'Inégalité d\'accès aux technologies numériques (internet, ordinateurs, smartphones) entre pays riches et pauvres, mais aussi au sein des sociétés.'},
+    {q:'Rôle des GAFAM dans la mondialisation.',a:'Google, Apple, Facebook (Meta), Amazon, Microsoft = géants du numérique. Ils dominent l\'économie mondiale via la data, le cloud, le e-commerce et les réseaux sociaux.'},
+    {q:'Qu\'est-ce que l\'économie circulaire ?',a:'Modèle économique qui vise à réduire les déchets et à allonger la durée de vie des produits (réutiliser, réparer, recycler) en opposition à l\'économie linéaire (produire-utiliser-jeter).'},
+    {q:'Dates et enjeux de la guerre d\'Indochine.',a:'1946-1954. La France tente de reconquérir l\'Indochine. Défaite à Diên Biên Phu (mai 1954). Accords de Genève : Vietnam divisé au 17e parallèle.'},
+    {q:'Qu\'est-ce que le processus de Nuremberg ?',a:'1945-1946 : procès des dirigeants nazis par un tribunal militaire international. Jugement pour crimes contre la paix, crimes de guerre, crimes contre l\'humanité. Concept fondateur du droit international.'},
+    {q:'Qu\'est-ce que le suffrage universel ?',a:'Droit de vote accordé à tous les citoyens (en France : à partir de 18 ans depuis 1974) sans distinction de fortune, de sexe ou de naissance.'},
+    {q:'Qu\'est-ce que la première guerre froide (1947-1953) ?',a:'Phase initiale de la Guerre Froide : doctrine Truman (1947), Plan Marshall (1948), Blocus de Berlin (1948-49), guerre de Corée (1950-53), création de l\'OTAN (1949).'}
+  ],
+  sc:[
+    {q:'Qu\'est-ce que l\'ADN ?',a:'Acide DésoxyriboNucléique : molécule en double hélice portant l\'information génétique. Composé de 4 bases : A, T, C, G. Présent dans le noyau de chaque cellule.'},
+    {q:'Combien de chromosomes possède une cellule humaine ?',a:'46 chromosomes (23 paires). Les gamètes (spermatozoïdes et ovules) n\'en ont que 23 (haploïdes).'},
+    {q:'Différence entre mitose et méiose.',a:'Mitose : 46 → 46 chromosomes, pour la croissance et réparation.\nMéiose : 46 → 23 chromosomes, pour former les gamètes.'},
+    {q:'Chromosomes sexuels : différence homme/femme.',a:'Femme : XX. Homme : XY.\nC\'est le chromosome du spermatozoïde (X ou Y) qui détermine le sexe de l\'enfant.'},
+    {q:'Différence entre génotype et phénotype.',a:'Génotype = constitution génétique (les allèles). Phénotype = caractère observable (couleur des yeux, groupe sanguin…). Le phénotype dépend du génotype ET de l\'environnement.'},
+    {q:'Qu\'est-ce qu\'un allèle dominant ?',a:'Un allèle dominant s\'exprime dans le phénotype même s\'il n\'est présent qu\'en un seul exemplaire (hétérozygote). L\'allèle récessif ne s\'exprime qu\'en double dose (homozygote).'},
+    {q:'Qu\'est-ce que la sélection naturelle selon Darwin ?',a:'Les individus ayant des caractères favorables à leur environnement survivent mieux et se reproduisent davantage. Ces caractères se transmettent à la descendance → évolution des espèces.'},
+    {q:'Donner 3 preuves de l\'évolution.',a:'1. Fossiles (traces d\'êtres disparus)\n2. Anatomie comparée (membres homologues)\n3. Génétique moléculaire (similitudes d\'ADN entre espèces proches)'},
+    {q:'Qu\'est-ce que la photosynthèse ?',a:'CO₂ + H₂O + énergie lumineuse → glucose + O₂\nEffectuée par les plantes dans les chloroplastes. Permet de fabriquer de la matière organique à partir de matière minérale.'},
+    {q:'Définir un écosystème.',a:'Ensemble formé par un milieu de vie (biotope) et les êtres vivants qui y habitent (biocénose) ainsi que leurs interactions.'},
+    {q:'Qu\'est-ce que la structure de la Terre (couches) ?',a:'De l\'extérieur vers l\'intérieur : croûte terrestre (0-30 km), manteau (jusqu\'à 2900 km), noyau externe liquide, noyau interne solide.'},
+    {q:'Qu\'est-ce que la tectonique des plaques ?',a:'La lithosphère est découpée en plaques qui se déplacent. Divergence → dorsales océaniques. Convergence → montagnes + subduction. Séismes et volcans aux frontières.'},
+    {q:'Qu\'est-ce que l\'effet de serre ?',a:'Phénomène naturel où les gaz (CO₂, méthane, vapeur d\'eau) retiennent la chaleur dans l\'atmosphère. Sans lui : −18°C. Les activités humaines l\'amplifient → réchauffement.'},
+    {q:'Loi d\'Ohm.',a:'U = R × I\nU = tension (Volts), R = résistance (Ohms), I = intensité (Ampères).\nR = U/I · I = U/R'},
+    {q:'Différence entre circuit en série et en dérivation.',a:'Série : I constant partout, U = U₁+U₂. Si une ampoule grille → tout s\'éteint.\nDérivation : U constant aux bornes de chaque branche, I = I₁+I₂. Si une ampoule grille → les autres fonctionnent.'},
+    {q:'Formule de la puissance électrique.',a:'P = U × I (en Watts)\nÉnergie : E = P × t (en Joules)\n1 kWh = 3 600 000 J'},
+    {q:'Où placer le voltmètre et l\'ampèremètre ?',a:'Voltmètre : EN DÉRIVATION (en parallèle sur le composant).\nAmpèremètre : EN SÉRIE (dans le circuit, coupure du fil).'},
+    {q:'Formule du poids.',a:'P = m × g\nP en Newton, m en kg, g ≈ 9,8 N/kg ≈ 10 N/kg sur Terre.\nÀ ne pas confondre avec la masse !'},
+    {q:'Formule de la vitesse.',a:'v = d / t\nd = v × t · t = d / v\nv en m/s ou km/h. 1 m/s = 3,6 km/h'},
+    {q:'Vitesse du son dans l\'air et de la lumière dans le vide.',a:'Son : ≈ 340 m/s dans l\'air\nLumière : c = 3 × 10⁸ m/s ≈ 300 000 km/s dans le vide'},
+    {q:'Structure d\'un atome.',a:'Noyau (protons + et neutrons 0) entouré d\'électrons −.\nZ = numéro atomique = nb protons = nb électrons (atome neutre).\nA = nb protons + nb neutrons.'},
+    {q:'Qu\'est-ce que le pH ?',a:'Mesure l\'acidité d\'une solution (échelle de 0 à 14).\n< 7 : acide · = 7 : neutre · > 7 : basique (alcalin)\nVinaiigre pH ≈ 3 · eau pure pH = 7 · soude pH ≈ 13'},
+    {q:'Comment équilibrer une équation chimique ?',a:'On ajuste les coefficients stœchiométriques pour que le nombre d\'atomes de chaque élément soit le même des deux côtés.\nEx : 2H₂ + O₂ → 2H₂O'},
+    {q:'Qu\'est-ce que la combustion ?',a:'Réaction chimique entre un combustible et le comburant (O₂). Libère de l\'énergie thermique et lumineuse.\nEx : CH₄ + 2O₂ → CO₂ + 2H₂O'},
+    {q:'Formule de l\'énergie cinétique.',a:'Ec = ½ × m × v²\nm en kg, v en m/s, Ec en Joules.'},
+    {q:'Formule de l\'énergie potentielle de pesanteur.',a:'Ep = m × g × h\nm en kg, g ≈ 10 N/kg, h en mètres, Ep en Joules.'},
+    {q:'Qu\'est-ce que la conservation de l\'énergie mécanique ?',a:'Em = Ec + Ep = constante (en l\'absence de frottements).\nEx : une balle qui tombe : Ep diminue, Ec augmente, mais Em reste constant.'},
+    {q:'Qu\'est-ce que la 6ème extinction de masse ?',a:'Extinction de masse en cours, accélérée par l\'activité humaine (déforestation, pollution, changement climatique). On estime que les espèces disparaissent 100 à 1000 fois plus vite que la normale.'},
+    {q:'Qu\'est-ce que le système immunitaire adaptatif ?',a:'Deuxième ligne de défense : lymphocytes B (anticorps) et T (destruction des cellules infectées). Il garde une mémoire immunitaire → base des vaccins.'},
+    {q:'Comment fonctionne un vaccin ?',a:'Un vaccin introduit une forme inoffensive (atténuée, morte ou fragment) d\'un agent infectieux. Le système immunitaire crée des anticorps et une mémoire → protection future.'},
+    {q:'Qu\'est-ce qu\'une mutation génétique ?',a:'Modification de la séquence d\'ADN. Peut être spontanée ou induite (UV, produits chimiques, radiations). Peut entraîner des maladies (cancer) ou être neutre/bénéfique.'},
+    {q:'Les 8 planètes du système solaire dans l\'ordre.',a:'Mercure, Vénus, Terre, Mars (rocheuses) — Jupiter, Saturne, Uranus, Neptune (gazeuses).\nMoyen mnémo : "Ma Voiture Tout en Métal Jaune Sur Une Nouvelle planète"'},
+    {q:'Qu\'est-ce que le Big Bang ?',a:'Théorie de l\'origine de l\'Univers il y a ≈ 13,8 milliards d\'années. L\'Univers s\'est formé à partir d\'un état de densité et température extrêmes, puis s\'est refroidi et s\'est étendu.'},
+    {q:'Qu\'est-ce que la fusion nucléaire dans les étoiles ?',a:'Dans le noyau des étoiles, 4 atomes d\'hydrogène fusionnent pour former 1 atome d\'hélium. Cette réaction libère une énergie considérable (lumière et chaleur).'},
+    {q:'Citoyens 1969 : premier homme sur la Lune.',a:'Neil Armstrong et Buzz Aldrin lors de la mission Apollo 11, le 21 juillet 1969. C\'est Neil Armstrong qui pose le premier le pied sur la Lune.'},
+    {q:'Définir la biodiversité.',a:'Diversité du vivant à 3 niveaux : diversité des espèces, diversité génétique au sein d\'une espèce, diversité des écosystèmes.'},
+    {q:'Qu\'est-ce que la classification phylogénétique ?',a:'Classification du vivant basée sur les liens de parenté évolutifs (ancêtres communs). Remplace les anciennes classifications basées uniquement sur les ressemblances.'},
+    {q:'Comment fonctionne l\'arc réflexe ?',a:'Stimulus → récepteur → nerf sensitif → moelle épinière → nerf moteur → effecteur (muscle).\nC\'est une réponse involontaire et rapide (ex : réflexe rotulien).'},
+    {q:'Qu\'est-ce qu\'une liaison covalente ?',a:'Liaison chimique par partage d\'électrons entre deux atomes. Ex : dans H₂O, l\'oxygène partage des électrons avec les 2 hydrogènes.'},
+    {q:'Différences entre énergies renouvelables et fossiles.',a:'Renouvelables : inépuisables à l\'échelle humaine (solaire, éolien, hydraulique, géothermie). Peu ou pas de CO₂.\nFossiles : pétrole, charbon, gaz = stock limité + émettent beaucoup de CO₂.'},
+    {q:'Qu\'est-ce que le cycle de l\'eau ?',a:'Évaporation (eau → vapeur, soleil) → condensation (vapeur → nuages) → précipitations (pluie, neige) → ruissellement ou infiltration → retour à la mer.'},
+    {q:'Formule chimique de l\'eau, du dioxyde de carbone et du glucose.',a:'Eau : H₂O\nDioxyde de carbone : CO₂\nGlucose : C₆H₁₂O₆'},
+    {q:'Qu\'est-ce que la réfraction de la lumière ?',a:'Déviation d\'un rayon lumineux lors du passage d\'un milieu à un autre (ex : air → eau → verre). C\'est pour ça qu\'une paille semble "cassée" dans un verre d\'eau.'},
+    {q:'Qu\'est-ce que le spectre de la lumière blanche ?',a:'La lumière blanche est décomposée par un prisme en ses couleurs composantes : violet, indigo, bleu, vert, jaune, orange, rouge (VIBVJOR ou arc-en-ciel).'},
+    {q:'Qu\'est-ce que l\'immunité innée ?',a:'Première ligne de défense, non spécifique. Réaction rapide (quelques heures). Peau, muqueuses, phagocytose (globules blancs mangent les agents pathogènes).'},
+    {q:'Qu\'est-ce qu\'un séisme ?',a:'Vibration du sol causée par la rupture d\'une faille dans la lithosphère. L\'épicentre est le point en surface à la verticale du foyer. Mesuré sur l\'échelle de Richter.'},
+    {q:'Qu\'est-ce que la subduction ?',a:'Plongée d\'une plaque océanique sous une plaque continentale ou une autre plaque océanique, lors d\'une convergence. Crée des fosses océaniques, des volcans et des séismes.'},
+    {q:'Qu\'est-ce qu\'un gaz à effet de serre (GES) ?',a:'Gaz qui absorbe le rayonnement infrarouge et réchauffe l\'atmosphère. Principaux GES : CO₂ (combustion), méthane CH₄ (agriculture, élevage), vapeur d\'eau, N₂O.'},
+    {q:'Réactions chimiques : loi de conservation de la masse.',a:'La masse totale des réactifs = la masse totale des produits.\n(Lavoisier) "Rien ne se perd, rien ne se crée, tout se transforme."'},
+    {q:'Qu\'est-ce qu\'un neurone ?',a:'Cellule du système nerveux qui reçoit et transmet des informations électriques. Composé d\'un corps cellulaire, de dendrites (réception) et d\'un axone (transmission).'},
+    {q:'Qu\'est-ce que la dispersion lumineuse ?',a:'Séparation des différentes couleurs de la lumière blanche par réfraction. Chaque couleur correspond à une longueur d\'onde différente. Visible dans un prisme ou un arc-en-ciel.'}
+  ],
+  te:[
+    {q:'Qu\'est-ce qu\'un objet technique ?',a:'Un objet fabriqué par l\'Homme pour répondre à un besoin. Ex : vélo, téléphone, pont. À distinguer de l\'objet naturel (pierre, arbre…).'},
+    {q:'Qu\'est-ce que la fonction principale (FP) d\'un objet ?',a:'La FP est ce pour quoi l\'objet a été conçu. Elle répond à la question "Dans quel but ?" dans la bête à cornes. Ex : FP d\'un vélo = permettre de se déplacer sans moteur.'},
+    {q:'Qu\'est-ce que la Bête à Cornes ?',a:'Outil d\'analyse du besoin. 3 questions :\n- À qui rend-il service ? (utilisateur)\n- Sur quoi agit-il ? (produit)\n- Dans quel but ? → Fonction Principale'},
+    {q:'Citer les 5 étapes de la chaîne fonctionnelle.',a:'Alimenter (énergie) → Acquérir (capteurs) → Traiter (programme) → Communiquer (afficheur) → Agir (actionneur).'},
+    {q:'Quelles sont les 5 familles de matériaux ?',a:'1. Métaux et alliages (acier, alu)\n2. Plastiques / polymères (PET, PVC)\n3. Céramiques et verres\n4. Bois et dérivés\n5. Composites (fibre de carbone)'},
+    {q:'Qu\'est-ce que l\'ACV ?',a:'Analyse du Cycle de Vie : évalue l\'impact environnemental d\'un produit de sa fabrication à sa fin de vie (extraction → fabrication → transport → usage → recyclage).'},
+    {q:'Définir le rendement d\'un système.',a:'η = Énergie utile / Énergie consommée × 100 (%)\nLe rendement est toujours inférieur à 100% car il y a toujours des pertes (chaleur, frottements).'},
+    {q:'Qu\'est-ce qu\'un système automatisé ?',a:'Système qui fonctionne sans intervention humaine continue. Composé d\'une Partie Commande (cerveau) et d\'une Partie Opérative (effectueur des actions).'},
+    {q:'Qu\'est-ce que la boucle de régulation ?',a:'Système avec retour d\'information : la valeur mesurée est comparée à la consigne, et le correcteur ajuste automatiquement l\'actionneur. Ex : thermostat.'},
+    {q:'Donner 3 exemples de capteurs avec leur grandeur mesurée.',a:'Thermistance → température\nPhototrésistance → luminosité\nFin de course → position\nMicro → son\nManomètre → pression'},
+    {q:'Donner 3 exemples d\'actionneurs avec leur effet.',a:'Moteur électrique → rotation\nVérin → translation\nLED → lumière\nBuzzer → son\nRésistance chauffante → chaleur'},
+    {q:'Qu\'est-ce qu\'un algorithme ?',a:'Suite d\'instructions précise et finie permettant de résoudre un problème. Un algorithme doit être correct (donne le bon résultat) et se terminer.'},
+    {q:'Les 3 structures de base d\'un programme.',a:'1. Séquence : instructions les unes après les autres\n2. Condition (si/sinon) : branchement selon un test\n3. Boucle (répéter/tant que) : répétition d\'instructions'},
+    {q:'En Scratch, quelle couleur correspond aux blocs de contrôle ?',a:'Orange (🟠). Les blocs de contrôle incluent : Répéter N fois, Répéter indéfiniment, Si…alors, Si…alors…sinon, Attendre.'},
+    {q:'En Scratch, quelle couleur correspond aux blocs de mouvement ?',a:'Bleu (🔵). Les blocs de mouvement incluent : Avancer de N pas, Tourner, Aller à x:y, S\'orienter vers…'},
+    {q:'En Scratch, que fait le bloc "Répéter indéfiniment" ?',a:'Il crée une boucle infinie : les blocs à l\'intérieur s\'exécutent en continu tant que le programme tourne. C\'est la boucle principale de la plupart des jeux Scratch.'},
+    {q:'En Scratch, comment créer une variable score ?',a:'Aller dans la catégorie "Variables" → "Créer une variable" → nommer "score". Ensuite utiliser "Mettre score à 0" pour initialiser et "Ajouter 1 à score" pour incrémenter.'},
+    {q:'En Python, que fait print() ?',a:'Affiche du texte ou une valeur à l\'écran.\nEx : print("Bonjour") → affiche Bonjour\nprint(2+3) → affiche 5'},
+    {q:'En Python, que fait range(5) ?',a:'Génère la séquence 0, 1, 2, 3, 4 (5 valeurs, de 0 à n-1).\nUtilisé dans for i in range(5): pour répéter 5 fois.'},
+    {q:'Qu\'est-ce qu\'une variable en programmation ?',a:'Un emplacement en mémoire qui stocke une valeur. On lui donne un nom et on peut modifier sa valeur.\nEx Python : age = 15 · score = 0 · nom = "Alice"'},
+    {q:'Différence entre boucle for et boucle while en Python.',a:'for i in range(n) : boucle bornée, répète n fois.\nwhile condition : boucle non bornée, répète tant que la condition est vraie. Risque de boucle infinie si la condition ne devient jamais fausse.'},
+    {q:'Qu\'est-ce qu\'Internet ?',a:'Infrastructure réseau mondiale interconnectant des millions de réseaux via des câbles, routeurs et satellites. Créé dans les années 1970 (ARPANET). Le Web est un service qui utilise Internet.'},
+    {q:'Différence entre Internet et le Web.',a:'Internet = infrastructure physique (câbles, routeurs, serveurs).\nWeb (WWW) = service d\'accès à des pages via HTTP/HTTPS, consulté via un navigateur. Le Web est un usage d\'Internet.'},
+    {q:'Qu\'est-ce qu\'une adresse IP ?',a:'Identifiant numérique unique d\'un équipement sur un réseau. Format IPv4 : 4 nombres séparés par des points (ex : 192.168.1.1). Permet de router les données jusqu\'au bon destinataire.'},
+    {q:'Qu\'est-ce que le DNS ?',a:'Domain Name System : traduit les noms de domaine (www.google.com) en adresses IP. C\'est l\'annuaire d\'Internet. Sans lui, il faudrait retenir les adresses IP par cœur.'},
+    {q:'Qu\'est-ce que le HTTPS ?',a:'HyperText Transfer Protocol Secure : protocole de communication web chiffré. Le "S" signifie que les données sont cryptées (certificat SSL/TLS). À vérifier avant d\'entrer des données personnelles.'},
+    {q:'Unités numériques : compléter la hiérarchie.',a:'1 octet = 8 bits\n1 Ko (kilooctet) = 1 024 octets\n1 Mo = 1 024 Ko\n1 Go = 1 024 Mo\n1 To = 1 024 Go'},
+    {q:'Qu\'est-ce que le RGPD en technologie ?',a:'Règlement Général sur la Protection des Données (2018, Europe). Oblige les entreprises à protéger les données personnelles. Droit d\'accès, rectification et effacement. CNIL contrôle en France.'},
+    {q:'Qu\'est-ce que l\'éco-conception ?',a:'Intégrer les contraintes environnementales dès la conception d\'un produit : choix de matériaux recyclables, réduction de l\'énergie consommée, facilitation du recyclage en fin de vie.'},
+    {q:'Qu\'est-ce que l\'obsolescence programmée ?',a:'Pratique consistant à concevoir un produit pour qu\'il tombe en panne ou devienne obsolète après un certain temps, forçant l\'achat d\'un nouveau produit. Interdite en France depuis 2015.'},
+    {q:'Qu\'est-ce que l\'économie circulaire ?',a:'Modèle opposé à l\'économie linéaire (produire-consommer-jeter). Principes : réduire (moins produire), réutiliser, réparer, recycler. Objectif : zéro déchet.'},
+    {q:'Qu\'est-ce qu\'un microcontrôleur (ex: Arduino, Micro:bit) ?',a:'Petit ordinateur sur une puce, programmable, capable de contrôler des systèmes physiques. Il lit les entrées (capteurs) et pilote les sorties (LED, moteur…). Utilisé en robotique, domotique.'},
+    {q:'Qu\'est-ce que la CAO ?',a:'Conception Assistée par Ordinateur : logiciel permettant de modéliser des objets en 2D ou 3D (ex : FreeCAD, SolidWorks, Fusion 360). Permet de simuler et d\'optimiser avant fabrication.'},
+    {q:'Qu\'est-ce que le cycle de vie d\'un produit ?',a:'1. Conception (design, CAO)\n2. Fabrication (usine, matériaux)\n3. Distribution (transport)\n4. Utilisation (usage, entretien)\n5. Fin de vie (recyclage, déchets)'},
+    {q:'Qu\'est-ce qu\'un protocole réseau ?',a:'Ensemble de règles définissant comment des équipements communiquent entre eux. Ex : TCP/IP (base d\'Internet), HTTP (web), FTP (fichiers), SMTP (email).'},
+    {q:'En Scratch, que fait le capteur "touche couleur [■] ?" ?',a:'Détecte si le sprite touche une zone du décor ayant la couleur spécifiée. Très utilisé pour les collisions avec les murs, le sol ou les obstacles dans les jeux de plateforme.'},
+    {q:'Qu\'est-ce qu\'un fichier compressé ?',a:'Fichier dont la taille a été réduite par un algorithme de compression (zip, rar). La compression peut être sans perte (zip → données identiques) ou avec perte (mp3, jpg → qualité réduite).'},
+    {q:'Qu\'est-ce que le phishing (hameçonnage) ?',a:'Technique de fraude où un attaquant se fait passer pour une entité de confiance (banque, admin…) pour voler des identifiants ou des données personnelles. Via email, SMS ou faux sites.'},
+    {q:'Qu\'est-ce qu\'une liaison covalente (chimie des matériaux) ?',a:'Liaison chimique par partage d\'électrons entre deux atomes. Crée des molécules stables. Ex : H-H dans H₂, C-H dans le méthane CH₄.'},
+    {q:'Qu\'est-ce que l\'impression 3D ?',a:'Procédé de fabrication additive : dépôt de matière couche par couche à partir d\'un modèle 3D numérique. Matériaux : plastique (PLA, ABS), résine, métal. Utilisé pour les prototypes.'},
+    {q:'Qu\'est-ce que la propriété intellectuelle ?',a:'Droits protégeant les créations de l\'esprit : brevets (inventions, 20 ans), droit d\'auteur (œuvres, 70 ans après la mort), marques, dessins et modèles.'},
+    {q:'Qu\'est-ce qu\'un LAN et un WAN ?',a:'LAN (Local Area Network) = réseau local, limité à un bâtiment (Wi-Fi maison, réseau scolaire).\nWAN (Wide Area Network) = réseau étendu, mondial (Internet).'},
+    {q:'Quelle est la différence entre un procédé par enlèvement et par ajout de matière ?',a:'Enlèvement : on part d\'un bloc et on retire de la matière (usinage, fraisage, tournage, perçage).\nAjout : on construit couche par couche (impression 3D, soudage, dépôt).'},
+    {q:'Qu\'est-ce qu\'un système embarqué ?',a:'Système informatique intégré dans un produit pour le contrôler en temps réel. Ex : calculateur moteur d\'une voiture, pilote automatique d\'un avion, système de freinage ABS.'},
+    {q:'En Python, que fait la structure if/elif/else ?',a:'if condition1 : bloc si cond1 vraie\nelif condition2 : bloc si cond2 vraie (sinon si)\nelse : bloc si aucune condition n\'est vraie\nPermet de tester plusieurs cas.'},
+    {q:'Qu\'est-ce qu\'un cookie (web) ?',a:'Petit fichier texte stocké sur l\'ordinateur de l\'utilisateur par un site web. Permet de garder en mémoire les préférences, l\'identifiant de connexion, le panier… Le RGPD impose leur consentement.'},
+    {q:'Comment fonctionne un panneau solaire photovoltaïque ?',a:'Les cellules photovoltaïques contiennent du silicium (semi-conducteur). Quand des photons frappent la cellule, ils arrachent des électrons → courant électrique continu. Un onduleur le transforme en courant alternatif.'},
+    {q:'Qu\'est-ce qu\'un diagramme pieuvre (FAST) ?',a:'Outil d\'analyse fonctionnelle qui représente les fonctions de service d\'un produit. Il montre les relations entre le produit et son milieu extérieur (utilisateurs, contraintes, normes).'},
+    {q:'Qu\'est-ce que le Bluetooth ?',a:'Norme de communication sans fil à courte portée (< 10 m environ), sur la fréquence 2,4 GHz. Permet la connexion d\'appareils proches (casque, souris, clavier, enceinte) sans fil.'},
+    {q:'Qu\'est-ce qu\'un réseau de neurones artificiels ?',a:'Système informatique inspiré du cerveau humain, composé de couches de "neurones" mathématiques. Base de l\'intelligence artificielle (IA). Utilisé pour la reconnaissance d\'images, de voix, traduction automatique.'}
+  ]
+};
+
+let flashSubject = 'fr';
+let flashIndex = 0;
+let flashFlipped = false;
+let flashCorrect = 0;
+let flashWrong = [];
+let flashOrder = [];
+
+function loadFlash(subj){
+  flashSubject = subj;
+  flashIndex = 0;
+  flashCorrect = 0;
+  flashWrong = [];
+  flashOrder = flashData[subj].map((_,i)=>i);
+  document.querySelectorAll('.flash-cat-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('fcat-'+subj).classList.add('active');
+  document.getElementById('fc-review').style.display = 'none';
+  showFlashCard();
+}
+
+function showFlashCard(){
+  const cards = flashData[flashSubject];
+  const idx = flashOrder[flashIndex];
+  document.getElementById('fc-question').textContent = cards[idx].q;
+  document.getElementById('fc-answer').innerHTML = cards[idx].a.replace(/\n/g,'<br>');
+  document.getElementById('fc-counter').textContent = 'Carte '+(flashIndex+1)+' / '+cards.length;
+  document.getElementById('fc-prog').style.width = ((flashIndex+1)/cards.length*100)+'%';
+  document.getElementById('fc-score').textContent = '✓ '+flashCorrect;
+  // Reset flip
+  flashFlipped = false;
+  document.getElementById('flashcard').classList.remove('fc-flipped');
+}
+
+function flipCard(){
+  flashFlipped = !flashFlipped;
+  if(flashFlipped) document.getElementById('flashcard').classList.add('fc-flipped');
+  else document.getElementById('flashcard').classList.remove('fc-flipped');
+}
+
+function nextCard(){
+  if(flashIndex < flashOrder.length-1){
+    flashIndex++;
+    showFlashCard();
+  } else {
+    // Fin du deck
+    document.getElementById('fc-question').textContent = '🎉 Deck terminé !';
+    document.getElementById('fc-answer').textContent = flashCorrect+'/'+flashOrder.length+' bonnes réponses. Bravo !';
+    if(flashWrong.length > 0){
+      document.getElementById('fc-review').style.display = 'block';
+      document.getElementById('fc-review-list').innerHTML = flashWrong.map(i=>
+        '• '+flashData[flashSubject][i].q
+      ).join('<br>');
+    }
+  }
+}
+
+function prevCard(){
+  if(flashIndex > 0){ flashIndex--; showFlashCard(); }
+}
+
+function markCorrect(){
+  flashCorrect++;
+  document.getElementById('fc-score').textContent = '✓ '+flashCorrect;
+  nextCard();
+}
+
+function markWrong(){
+  const idx = flashOrder[flashIndex];
+  if(!flashWrong.includes(idx)) flashWrong.push(idx);
+  nextCard();
+}
+
+function shuffleCards(){
+  for(let i=flashOrder.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [flashOrder[i],flashOrder[j]]=[flashOrder[j],flashOrder[i]];
+  }
+  flashIndex=0;
+  flashCorrect=0;
+  flashWrong=[];
+  showFlashCard();
+}
+
+// Init flashcards
+loadFlash('fr');
 </script>
 </body>
 </html>
